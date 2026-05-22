@@ -43,10 +43,7 @@
 html, body {
   width: 100%;
   overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-@media (prefers-reduced-motion: reduce) {
-  html, body { scroll-behavior: auto; }
+  -webkit-overflow-scrolling: touch;
 }
 body {
   font-family: var(--font-primary);
@@ -1002,7 +999,7 @@ img, video { max-width: 100%; display: block; }
 /* =========================================
    Animations
    ========================================= */
-@media (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) and (min-width: 1025px) {
   .fade-in {
     opacity: 0;
     transform: translate3d(0, 20px, 0);
@@ -1012,10 +1009,14 @@ img, video { max-width: 100%; display: block; }
   .fade-in.is-visible {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-  }
-  /* 애니메이션 완료 후 will-change 해제 (성능 보호) */
-  .fade-in.is-visible {
     will-change: auto;
+  }
+}
+/* 모바일은 fade-in 효과 없이 즉시 표시 (스크롤 성능 우선) */
+@media (max-width: 1024px) {
+  .fade-in {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -1044,7 +1045,7 @@ img, video { max-width: 100%; display: block; }
 }
 
 @media (max-width: 768px) {
-  .nav { padding: 12px 16px; height: 56px; }
+  .nav { padding: 12px 16px; height: 56px; backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255, 255, 255, 0.98); }
   .nav__logo { font-size: 15px; }
   .nav__menu { gap: 14px; font-size: 13px; }
   .nav__menu .nav__cta { padding: 8px 12px; font-size: 12px; }
@@ -1066,7 +1067,14 @@ img, video { max-width: 100%; display: block; }
   .keynote-dark__content { padding: 24px; }
   .keynote-dark__line { left: 24px; }
 
+  /* 모바일에서 흐르는 라인 애니메이션 비활성화 (스크롤 성능 우선) */
+  .hero__line::before,
+  .keynote-dark__line::before {
+    animation: none;
+  }
+
   .philosophy__visual { height: 70vh; min-height: 480px; }
+  .philosophy__visual img { filter: none; }
   .philosophy__overlay { left: 50%; right: auto; top: 50%; bottom: auto; transform: translate(-50%, -50%); width: 86%; text-align: center; }
   .philosophy__bottom { padding: 80px 24px; }
 
@@ -1396,47 +1404,46 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-/* ============= KEYNOTE 텍스트 스크롤 페이드 (최적화) ============= */
+/* ============= KEYNOTE 텍스트 스크롤 페이드 ============= */
 const keynoteTexts = document.querySelectorAll('.keynote__text');
-let textTicking = false;
-const textStateCache = new WeakMap();
+const IS_MOBILE = window.matchMedia('(max-width: 1024px)').matches || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
-function updateTextFade() {
-  const viewportHeight = window.innerHeight;
-  keynoteTexts.forEach(textEl => {
-    const rect = textEl.getBoundingClientRect();
-    // 뷰포트에서 크게 벗어난 요소는 계산 스킵 (성능 향상)
-    if (rect.bottom < -200 || rect.top > viewportHeight + 200) {
-      return;
-    }
-    const center = rect.top + rect.height / 2;
-    const distanceFromCenter = (center - viewportHeight / 2) / (viewportHeight / 2);
-    const opacity = Math.max(0, Math.min(1, 1 - Math.abs(distanceFromCenter) * 1.1));
-    const translateY = distanceFromCenter * 30;
+// 모바일이면 페이드 효과 완전 비활성화 (스크롤 성능 우선)
+if (!IS_MOBILE && keynoteTexts.length > 0) {
+  let textTicking = false;
+  const textStateCache = new WeakMap();
 
-    // 변화가 매우 작으면 업데이트 스킵 (불필요한 렌더링 방지)
-    const cached = textStateCache.get(textEl);
-    if (cached && Math.abs(cached.opacity - opacity) < 0.01 && Math.abs(cached.translateY - translateY) < 0.5) {
-      return;
-    }
-    textStateCache.set(textEl, { opacity, translateY });
+  function updateTextFade() {
+    const viewportHeight = window.innerHeight;
+    keynoteTexts.forEach(textEl => {
+      const rect = textEl.getBoundingClientRect();
+      if (rect.bottom < -200 || rect.top > viewportHeight + 200) return;
+      const center = rect.top + rect.height / 2;
+      const distanceFromCenter = (center - viewportHeight / 2) / (viewportHeight / 2);
+      const opacity = Math.max(0, Math.min(1, 1 - Math.abs(distanceFromCenter) * 1.1));
+      const translateY = distanceFromCenter * 30;
 
-    textEl.style.opacity = opacity.toFixed(2);
-    textEl.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
-  });
-  textTicking = false;
-}
+      const cached = textStateCache.get(textEl);
+      if (cached && Math.abs(cached.opacity - opacity) < 0.01 && Math.abs(cached.translateY - translateY) < 0.5) return;
+      textStateCache.set(textEl, { opacity, translateY });
 
-function requestTextFade() {
-  if (!textTicking) {
-    window.requestAnimationFrame(updateTextFade);
-    textTicking = true;
+      textEl.style.opacity = opacity.toFixed(2);
+      textEl.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+    });
+    textTicking = false;
   }
-}
 
-window.addEventListener('scroll', requestTextFade, { passive: true });
-window.addEventListener('resize', requestTextFade, { passive: true });
-updateTextFade();
+  function requestTextFade() {
+    if (!textTicking) {
+      window.requestAnimationFrame(updateTextFade);
+      textTicking = true;
+    }
+  }
+
+  window.addEventListener('scroll', requestTextFade, { passive: true });
+  window.addEventListener('resize', requestTextFade, { passive: true });
+  updateTextFade();
+}
 </script>
 
 </body>
