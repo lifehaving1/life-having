@@ -78,6 +78,7 @@ img, video { max-width: 100%; display: block; }
   .voices__title br,
   .quote__text br,
   .track-card__desc br,
+  .recruit__lead br,
   .cta__headline br,
   .cta__lead br {
     display: none;
@@ -137,6 +138,83 @@ img, video { max-width: 100%; display: block; }
 }
 .nav__menu .nav__cta:hover {
   background: transparent;
+  color: var(--text-primary);
+}
+/* --- Service 드롭다운 --- */
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle {
+  font: inherit;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+.nav__dropdown-toggle::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  opacity: 0.55;
+  transition: transform 0.25s ease;
+}
+.nav__dropdown:hover .nav__dropdown-toggle,
+.nav__dropdown:focus-within .nav__dropdown-toggle { color: var(--text-primary); }
+.nav__dropdown:hover .nav__dropdown-toggle::after,
+.nav__dropdown:focus-within .nav__dropdown-toggle::after {
+  transform: rotate(45deg) translateY(1px);
+}
+.nav__dropdown-menu {
+  position: absolute;
+  top: calc(100% + 16px);
+  right: 0;
+  min-width: 196px;
+  background: var(--bg-primary);
+  border: 0.5px solid var(--border-default);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
+  transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s;
+  z-index: 120;
+}
+.nav__dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  left: 0;
+  right: 0;
+  height: 16px;
+}
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown:focus-within .nav__dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav__dropdown-menu a {
+  display: block;
+  padding: 11px 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.nav__dropdown-menu a:hover {
+  background: var(--bg-warm);
   color: var(--text-primary);
 }
 
@@ -1024,6 +1102,153 @@ img, video { max-width: 100%; display: block; }
 }
 
 /* =========================================
+   RECRUIT · 히어로 아래 모집 섹션
+   ========================================= */
+.recruit {
+  background: var(--bg-cream);
+  border-bottom: 0.5px solid var(--border-default);
+  padding: 120px 64px;
+}
+.recruit__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.recruit__visual {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: linear-gradient(135deg, #EDE9E0, #D5D1C8);
+}
+.recruit__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.recruit__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent-sage);
+  margin-bottom: 22px;
+}
+.recruit__badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-sage);
+}
+.recruit__title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+.recruit__lead {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--text-tertiary);
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+.recruit__info {
+  border-top: 0.5px solid var(--border-subtle);
+  margin-bottom: 36px;
+}
+.recruit__row {
+  display: flex;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 0.5px solid var(--border-subtle);
+}
+.recruit__row-label {
+  flex: 0 0 68px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  padding-top: 2px;
+}
+.recruit__row-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+.recruit__block {
+  margin-bottom: 28px;
+}
+.recruit__block-label {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 7px;
+}
+.recruit__block-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-body);
+}
+.recruit__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.recruit__list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+.recruit__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-sage);
+}
+.recruit__apply {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+  background: var(--text-primary);
+  color: var(--text-on-dark);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  padding: 15px 34px;
+  border: 1px solid var(--text-primary);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.recruit__apply:hover {
+  background: transparent;
+  color: var(--text-primary);
+}
+.recruit__note {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* =========================================
    SITE FOOTER · 미니멀 (로고 + SNS)
    ========================================= */
 .site-footer {
@@ -1118,6 +1343,8 @@ img, video { max-width: 100%; display: block; }
   .method__inner { grid-template-columns: 1fr; gap: 40px; }
   .method__sub { width: 160px; height: 130px; right: -16px; bottom: -32px; }
   .tracks__grid { grid-template-columns: 1fr; gap: 32px; }
+  .recruit__inner { grid-template-columns: 1fr; gap: 40px; }
+  .recruit__visual { aspect-ratio: 4 / 3; max-height: 420px; }
 }
 
 @media (max-width: 768px) {
@@ -1125,6 +1352,8 @@ img, video { max-width: 100%; display: block; }
   .nav__logo { font-size: 15px; }
   .nav__menu { gap: 14px; font-size: 13px; }
   .nav__menu .nav__cta { padding: 8px 12px; font-size: 12px; }
+
+  .recruit { padding: 80px 24px; }
 
   .hero { min-height: 560px; }
   .hero__content { left: 24px; right: 24px; bottom: 64px; }
@@ -1178,7 +1407,14 @@ img, video { max-width: 100%; display: block; }
 <nav class="nav">
   <a href="index.html" class="nav__logo">lifehaving<span class="dot">.</span></a>
   <div class="nav__menu">
-    <a href="coming-soon.html">Workshop</a>
+    <div class="nav__dropdown">
+      <button type="button" class="nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Service</button>
+      <div class="nav__dropdown-menu">
+        <a href="community.html">Community</a>
+        <a href="coming-soon.html">Workshop</a>
+        <a href="https://forms.gle/yLydiQVsQA1uz1k28" target="_blank" rel="noopener">1:1 Coaching</a>
+      </div>
+    </div>
     <a href="#tracks">Story</a>
     <a href="https://forms.gle/yLydiQVsQA1uz1k28" target="_blank" rel="noopener" class="nav__cta">신청하기</a>
   </div>
@@ -1196,13 +1432,66 @@ img, video { max-width: 100%; display: block; }
   </div>
   <!-- 화면 전체 가로폭 divider (왼→오 채워지는 라인) -->
   <div class="hero__line" aria-hidden="true"></div>
-  <a href="#keynote" class="hero__scroll" aria-label="아래로 스크롤">
+  <a href="#recruit" class="hero__scroll" aria-label="아래로 스크롤">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 12 15 18 9"></polyline>
     </svg>
     <span>SCROLL</span>
   </a>
 </header>
+
+<!-- ============= RECRUIT · 모집 (히어로 아래 첫 섹션) ============= -->
+<section class="recruit fade-in" id="recruit">
+  <div class="recruit__inner">
+    <div class="recruit__visual">
+      <img src="gallery-9.jpg" alt="다시 공간이 내 것이 되는 순간 모집">
+    </div>
+    <div class="recruit__body">
+      <div class="recruit__badge">모집 중</div>
+      <h2 class="recruit__title">"다시, 공간이 내 것이 되는 순간"</h2>
+      <p class="recruit__lead">
+        퇴근 후에도 제대로 쉬지 못했다면.<br>
+        나를 소진시키지 않는 집과 루틴을, 반나절 동안 함께 설계합니다.
+      </p>
+
+      <div class="recruit__info">
+        <div class="recruit__row">
+          <div class="recruit__row-label">일시</div>
+          <div class="recruit__row-value">2026. 7. 12 (일) · 오후 1–3시</div>
+        </div>
+        <div class="recruit__row">
+          <div class="recruit__row-label">장소</div>
+          <div class="recruit__row-value">데스크라운지 3층 · 대구 수성구 무학로 113</div>
+        </div>
+        <div class="recruit__row">
+          <div class="recruit__row-label">인원</div>
+          <div class="recruit__row-value">선착순 10명 (최소 4명 이상 진행)</div>
+        </div>
+        <div class="recruit__row">
+          <div class="recruit__row-label">참가비</div>
+          <div class="recruit__row-value">30,000원</div>
+        </div>
+      </div>
+
+      <div class="recruit__block">
+        <div class="recruit__block-label">이런 분에게</div>
+        <ul class="recruit__list">
+          <li>퇴근 후 지쳐서 아무것도 하기 싫은 분</li>
+          <li>밖에서 방전된 에너지를 집에서 채우고 싶은 분</li>
+          <li>집을 온전히 나만의 휴식처로 만들고 싶은 분</li>
+        </ul>
+      </div>
+
+      <div class="recruit__block">
+        <div class="recruit__block-label">진행</div>
+        <p class="recruit__block-text">공간・라이프 디렉터 김지영 ・ 라이프해빙 대표</p>
+      </div>
+
+      <a href="https://forms.gle/yLydiQVsQA1uz1k28" target="_blank" rel="noopener" class="recruit__apply">신청하기 →</a>
+      <p class="recruit__note">신청서 작성 후 24시간 이내 입금 안내 문자가 발송됩니다.</p>
+    </div>
+  </div>
+</section>
 
 <!-- ============= KEYNOTE 1 · 비대칭 매거진 ============= -->
 <section class="keynote fade-in" id="keynote">
@@ -1315,9 +1604,9 @@ img, video { max-width: 100%; display: block; }
     <div class="tracks__grid">
       <article class="track-card">
         <div class="track-card__visual">
-          <img src="gallery-9.jpg" alt="다시 내 공간이 내 것이 되는 자리">
+          <img src="gallery-9.jpg" alt="다시 공간이 내 것이 되는 자리">
         </div>
-        <div class="track-card__entry">"다시, 내 공간이 내 것이 되는 순간"</div>
+        <div class="track-card__entry">"다시, 공간이 내 것이 되는 순간"</div>
         <div class="track-card__audience">퇴근 후에도 쉬지 못하는 직장인에게</div>
         <p class="track-card__desc">
           집이 더 이상 나를 소진시키지 않도록,<br>
