@@ -228,17 +228,30 @@ img, video { max-width: 100%; display: block; }
   background: var(--bg-dark);
   overflow: hidden;
 }
-.hero__bg {
+.hero__slides {
   position: absolute;
   inset: 0;
   z-index: 0;
+}
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  background-position: center 60%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;
+}
+.hero__slide.is-active { opacity: 1; }
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
     /* 좌하단 비네팅 — 텍스트 영역을 어둡게 (글자 가독성 강화) */
     radial-gradient(ellipse at 25% 80%, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 55%),
     /* 전체 세로 그라데이션 — 위→아래로 점점 어두워짐 */
-    linear-gradient(180deg, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.92) 100%),
-    url('hero.jpg') center 65%/cover no-repeat,
-    #1a1814;
+    linear-gradient(180deg, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.92) 100%);
 }
 
 .hero__content {
@@ -1422,6 +1435,13 @@ img, video { max-width: 100%; display: block; }
 
 <!-- ============= HERO · 풀스크린 시네마틱 ============= -->
 <header class="hero">
+  <div class="hero__slides">
+    <div class="hero__slide is-active" style="background-image:url('gallery-6.jpg')"></div>
+    <div class="hero__slide" style="background-image:url('gallery-2.jpg')"></div>
+    <div class="hero__slide" style="background-image:url('gallery-10.jpg')"></div>
+    <div class="hero__slide" style="background-image:url('gallery-14.jpg')"></div>
+    <div class="hero__slide" style="background-image:url('gallery-16.jpg')"></div>
+  </div>
   <div class="hero__bg"></div>
   <div class="hero__content">
     <h1 class="hero__headline">
@@ -1587,7 +1607,6 @@ img, video { max-width: 100%; display: block; }
         스스로 변화할 수 있는 환경을 만들고,<br>
         그 곁에서 머뭅니다.
       </p>
-      <span class="text-pending">준비중</span>
     </div>
   </div>
 </section>
@@ -1662,6 +1681,20 @@ img, video { max-width: 100%; display: block; }
 </footer>
 
 <script>
+// Hero 자동 페이드 슬라이드
+(function () {
+  const slides = document.querySelectorAll('.hero__slide');
+  if (slides.length <= 1) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  let i = 0;
+  setInterval(function () {
+    slides[i].classList.remove('is-active');
+    i = (i + 1) % slides.length;
+    slides[i].classList.add('is-active');
+  }, 3000);
+})();
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
