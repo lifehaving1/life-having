@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="라이프해빙 — 공간이 바뀌면, 삶이 움직입니다. 방 정리에서 시작하는 나다운 삶의 나침판.">
-<title>라이프해빙 | 공간이 바뀌면, 삶이 움직입니다.</title>
+<meta name="description" content="라이프해빙 커뮤니티 — 같은 자리에서 시작한 사람들과 함께, 공간의 변화에서 나다운 삶으로.">
+<title>라이프해빙 | Community</title>
 
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,16 +23,12 @@
   --bg-dark: #0A0A0A;
   --border-default: #E8E8E8;
   --border-subtle: #E0E0E0;
-  --border-on-dark: rgba(255, 255, 255, 0.15);
   --text-primary: #0A0A0A;
   --text-body: #2A2A2A;
   --text-secondary: #555555;
   --text-tertiary: #666666;
   --text-muted: #999999;
   --text-on-dark: #FFFFFF;
-  --text-on-dark-muted: rgba(255, 255, 255, 0.7);
-  --text-on-dark-subtle: rgba(255, 255, 255, 0.5);
-  --text-on-dark-footer: rgba(255, 255, 255, 0.3);
   --accent-sage: #8A9A87;
 
   --font-primary: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -40,11 +36,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-}
+html, body { width: 100%; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
 body {
   font-family: var(--font-primary);
   background: var(--bg-primary);
@@ -57,36 +49,15 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
-img, video { max-width: 100%; display: block; }
+img { max-width: 100%; display: block; }
 
-/* 모바일에서 모든 줄바꿈을 공백으로 처리 (단어 가운데 깨짐 방지) */
 @media (max-width: 768px) {
-  .hero__headline br,
-  .empathy__overlay-title br,
-  .empathy__overlay-desc br,
-  .empathy__content-title br,
-  .empathy__content-desc br,
-  .keynote__title br,
-  .keynote__desc br,
-  .keynote-dark__text br,
-  .philosophy__overlay-quote br,
-  .philosophy__bottom-title br,
-  .method__title br,
-  .method__lead br,
-  .method__desc br,
-  .tracks__title br,
-  .voices__title br,
-  .quote__text br,
-  .track-card__desc br,
-  .recruit__lead br,
-  .cta__headline br,
-  .cta__lead br {
-    display: none;
-  }
+  .community__title br,
+  .community__sub br { display: none; }
 }
 
 /* =========================================
-   Navigation
+   Navigation (메인과 동일)
    ========================================= */
 .nav {
   background: rgba(255, 255, 255, 0.92);
@@ -217,685 +188,121 @@ img, video { max-width: 100%; display: block; }
   background: var(--bg-warm);
   color: var(--text-primary);
 }
+.nav__dropdown-menu a.is-current {
+  color: var(--text-primary);
+  background: var(--bg-warm);
+}
 
 /* =========================================
-   HERO · 풀스크린 시네마틱
+   COMMUNITY · 헤더
    ========================================= */
-.hero {
-  position: relative;
-  height: 100vh;
-  min-height: 640px;
-  background: var(--bg-dark);
-  overflow: hidden;
+.community {
+  background: var(--bg-primary);
+  padding: 128px 64px 120px;
 }
-.hero__slides {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+.community__inner {
+  max-width: 1080px;
+  margin: 0 auto;
 }
-.hero__slide {
-  position: absolute;
-  inset: 0;
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 1.6s ease-in-out;
+.community__header {
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto 88px;
 }
-.hero__slide.is-active { opacity: 1; }
-.hero__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    /* 좌하단 비네팅 — 텍스트 영역을 어둡게 (글자 가독성 강화) */
-    radial-gradient(ellipse at 25% 80%, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 55%),
-    /* 전체 세로 그라데이션 — 위→아래로 점점 어두워짐 */
-    linear-gradient(180deg, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.92) 100%);
-}
-
-.hero__content {
-  position: absolute;
-  left: 64px;
-  bottom: 96px;
-  z-index: 2;
-  max-width: 720px;
-}
-.hero__headline {
-  font-size: clamp(40px, 5.4vw, 64px);
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.028em;
-  color: var(--text-on-dark);
-  margin-bottom: 0;
-  animation: fadeUpHero 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-}
-.hero__headline .em {
-  font-family: var(--font-serif);
-  font-weight: 300;
-  font-style: italic;
-  letter-spacing: 0.02em;
-}
-.hero__divider {
-  display: none; /* 기존 좌측 divider 비활성화 (전체 폭 divider로 대체) */
-}
-
-/* 화면 전체 가로폭 divider — 끊임없이 좌→우로 흐르는 라인 */
-.hero__line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 152px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.12);
-  z-index: 2;
-  overflow: hidden;
-}
-.hero__line::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 200%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.75) 50%,
-    rgba(255, 255, 255, 0) 65%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  animation: flowHorizontal 6s linear infinite;
-}
-
-@keyframes flowHorizontal {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0%); }
-}
-.hero__sub {
-  font-size: 14px;
-  color: var(--text-on-dark-muted);
-  letter-spacing: 0.02em;
-  font-weight: 400;
-  margin-top: 80px;
-  animation: fadeUpHero 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-}
-
-@keyframes fadeUpHero {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.hero__scroll {
-  position: absolute;
-  bottom: 40px;
-  right: 40px;
-  z-index: 2;
-  width: 64px;
-  height: 64px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 9px;
+.community__eyebrow {
+  font-size: 12px;
   letter-spacing: 0.2em;
-  font-weight: 500;
-  animation: scrollBounce 2.5s ease-in-out infinite;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-}
-.hero__scroll svg { width: 16px; height: 16px; }
-
-@keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-/* =========================================
-   EMPATHY · 큰 이미지 + 우측 작은 텍스트 (한솔데코 스타일)
-   ========================================= */
-.empathy {
-  background: var(--bg-warm);
-  padding: 0;
-  position: relative;
-  overflow: hidden;
-}
-.empathy__inner {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  min-height: 80vh;
-}
-.empathy__visual {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #D5D1C8, #B8B3A8);
-}
-.empathy__visual img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 35%;
-  transform: scale(1.15);
-  display: block;
-}
-.empathy__visual::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(10, 10, 10, 0.1) 0%, rgba(10, 10, 10, 0.35) 100%);
-}
-.empathy__overlay-text {
-  position: absolute;
-  bottom: 96px;
-  left: 64px;
-  right: 64px;
-  z-index: 2;
-  color: var(--text-on-dark);
-  max-width: 480px;
-}
-.empathy__overlay-title {
-  font-size: clamp(22px, 2.4vw, 28px);
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: -0.018em;
-  margin-bottom: 20px;
-  color: var(--text-on-dark);
-}
-.empathy__overlay-desc {
-  font-size: 14px;
-  line-height: 1.85;
-  color: rgba(255, 255, 255, 0.78);
-  letter-spacing: -0.005em;
-}
-
-.empathy__content {
-  padding: 96px 64px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: var(--bg-warm);
-}
-.empathy__content-title {
-  font-size: clamp(24px, 2.6vw, 30px);
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.018em;
-  margin-bottom: 28px;
-  color: var(--text-primary);
-}
-.empathy__content-title .em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-.empathy__content-desc {
-  font-size: 14.5px;
-  line-height: 1.9;
-  color: var(--text-tertiary);
-  letter-spacing: -0.005em;
-  margin-bottom: 40px;
-}
-
-/* =========================================
-   KEYNOTE · 비대칭 매거진 (소요한남 스타일)
-   ========================================= */
-.keynote {
-  background: var(--bg-primary);
-  padding: 140px 64px;
-  position: relative;
-}
-.keynote__inner {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-/* 첫 블록: 좌측 이미지 + 우측 텍스트 */
-.keynote__row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: end;
-  margin-bottom: 220px;
-}
-.keynote__row:last-child { margin-bottom: 0; }
-
-/* 두 번째 블록: 비대칭 어긋남 — 우측 이미지 + 좌측 텍스트가 아래로 내려와서 배치 */
-.keynote__row--reverse {
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
-  padding-top: 120px;
-  margin-top: -120px;
-}
-.keynote__row--reverse .keynote__visual {
-  order: 2;
-}
-.keynote__row--reverse .keynote__text {
-  padding-top: 200px;
-}
-
-.keynote__visual {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #EDE9E0, #D5D1C8);
-}
-.keynote__visual--tall {
-  aspect-ratio: 3 / 4;
-}
-.keynote__visual--wide {
-  aspect-ratio: 4 / 3;
-}
-.keynote__visual--wide img {
-  transform: scale(1.18);
-  object-position: center 40%;
-}
-.keynote__visual img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.keynote__text {
-  padding-bottom: 24px;
-  will-change: opacity, transform;
-}
-.keynote__text--top {
-  padding-bottom: 0;
-}
-.keynote__title {
-  font-size: clamp(26px, 3vw, 36px);
-  font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: -0.022em;
-  margin-bottom: 24px;
-  color: var(--text-primary);
-}
-.keynote__title .em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-.keynote__desc {
-  font-size: 15px;
-  line-height: 1.9;
-  color: var(--text-tertiary);
-  letter-spacing: -0.005em;
-  max-width: 440px;
-}
-
-/* 어두운 풀스크린 KEYNOTE (예시 4번 — 차분한 빛 + 작은 텍스트) */
-.keynote-dark {
-  background: #0A0A0A;
-  color: var(--text-on-dark);
-  padding: 0;
-  position: relative;
-  height: 50vh;
-  min-height: 380px;
-  overflow: hidden;
-}
-.keynote-dark__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: linear-gradient(180deg, #1A1714 0%, #0A0908 50%, #050403 100%);
-}
-/* 위 KEYNOTE 섹션에서 자연스럽게 어두워지는 전환 띠 */
-.keynote-dark::before {
-  content: '';
-  position: absolute;
-  top: -120px;
-  left: 0;
-  right: 0;
-  height: 120px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(26, 23, 20, 0.4) 60%, #1A1714 100%);
-  z-index: 1;
-  pointer-events: none;
-}
-/* HERO와 같은 톤의 세로 라인 (끊임없이 위→아래로 흐름, 좌측 배치) */
-.keynote-dark__line {
-  position: absolute;
-  left: 64px;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  z-index: 3;
-  overflow: hidden;
-}
-.keynote-dark__line::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 200%;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.7) 50%,
-    rgba(255, 255, 255, 0) 65%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  animation: flowVertical 6s linear infinite;
-}
-
-@keyframes flowVertical {
-  from { transform: translateY(-50%); }
-  to   { transform: translateY(0%); }
-}
-.keynote-dark__content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  padding: 32px;
-}
-.keynote-dark__text {
-  text-align: center;
-  max-width: 640px;
-  font-size: clamp(16px, 1.6vw, 20px);
-  line-height: 2;
-  letter-spacing: -0.005em;
-  color: rgba(255, 255, 255, 0.92);
-  font-weight: 400;
-}
-.keynote-dark__text .em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-
-/* =========================================
-   PHILOSOPHY · 한솔데코 스타일 (좌측 이미지 오버레이 + 하단 메시지)
-   ========================================= */
-.philosophy {
-  background: var(--bg-primary);
-  padding: 0;
-}
-.philosophy__visual {
-  position: relative;
-  width: 100%;
-  height: 80vh;
-  min-height: 560px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #D5D1C8, #B8B3A8);
-}
-.philosophy__visual img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transform: scaleX(-1);
-  filter: brightness(0.95) contrast(1) saturate(0.95);
-}
-/* PHILOSOPHY 오버레이 — 중앙 텍스트 영역 부드러운 비네팅 (이미지 본연 살림) */
-.philosophy__visual::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    /* 중앙 텍스트 영역에 부드러운 비네팅 — 글자 가독성만 살림 */
-    radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0) 75%),
-    /* 전체 옅은 어두움 — 이미지 디테일 유지 */
-    linear-gradient(180deg, rgba(10, 10, 10, 0.15) 0%, rgba(10, 10, 10, 0.3) 100%);
-  z-index: 1;
-}
-.philosophy__overlay {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  color: var(--text-on-dark);
-  max-width: 720px;
-  width: 90%;
-  text-align: center;
-}
-.philosophy__overlay-quote {
-  font-size: clamp(28px, 3.4vw, 42px);
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: -0.022em;
-  color: var(--text-on-dark);
-}
-.philosophy__overlay-quote .em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-
-.philosophy__bottom {
-  background: var(--bg-primary);
-  padding: 140px 64px;
-  text-align: center;
-}
-.philosophy__bottom-title {
-  font-size: clamp(26px, 3vw, 34px);
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.022em;
-  color: var(--text-primary);
-  max-width: 880px;
-  margin: 0 auto;
-}
-.philosophy__bottom-title .em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-
-/* =========================================
-   METHOD · 큰 메인 이미지 + 우측 텍스트 + 오버랩 서브 (펫팜 스타일)
-   ========================================= */
-.method {
-  background: var(--bg-cream);
-  padding: 140px 64px 180px;
-  position: relative;
-}
-.method__inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-/* 좌측: 메인 이미지 + 오버랩 서브 */
-.method__main {
-  position: relative;
-}
-.method__hero {
-  width: 100%;
-  aspect-ratio: 5 / 4;
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #D5D1C8, #B8B3A8);
-}
-.method__hero img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* 우측 하단 오버랩 서브 이미지 */
-.method__sub {
-  position: absolute;
-  right: -48px;
-  bottom: -64px;
-  width: 220px;
-  height: 180px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #E5E2D8, #C9C5BC);
-  box-shadow: 0 16px 40px rgba(10, 10, 10, 0.12);
-  z-index: 2;
-}
-.method__sub img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* 우측 텍스트 영역 */
-.method__content {
-  padding: 0;
-}
-.method__title {
-  font-size: clamp(22px, 2.2vw, 28px);
-  font-weight: 500;
-  letter-spacing: -0.018em;
-  line-height: 1.45;
-  color: var(--text-primary);
-  margin-bottom: 28px;
-}
-.method__title .em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-.method__desc {
-  font-size: 14.5px;
-  color: var(--text-tertiary);
-  line-height: 1.95;
-  letter-spacing: -0.005em;
-  margin-bottom: 36px;
-}
-.method__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  border-bottom: 1px solid var(--text-primary);
-  padding-bottom: 6px;
-  letter-spacing: -0.005em;
-  transition: gap 0.3s ease;
-}
-.method__link:hover { gap: 16px; }
-.method__link svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* 공용 버튼 - 워크숍 신청 등 주요 CTA */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 26px;
-  background: var(--text-primary);
-  color: var(--text-on-dark);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: -0.005em;
-  border: 1px solid var(--text-primary);
-  transition: all 0.3s ease;
-  align-self: flex-start;
-}
-.btn-primary:hover {
-  background: transparent;
-  color: var(--text-primary);
-  gap: 14px;
-}
-.btn-primary svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* 비활성 / 예정 상태 텍스트 */
-.text-pending {
-  display: inline-flex;
-  align-items: center;
-  font-size: 13px;
-  font-weight: 500;
+  text-transform: uppercase;
   color: var(--text-muted);
-  letter-spacing: -0.005em;
-  font-style: italic;
-  align-self: flex-start;
+  margin-bottom: 26px;
 }
-
-/* =========================================
-   TRACKS (두 동선) — 이미지 풀폭 카드
-   ========================================= */
-.tracks {
-  background: var(--bg-primary);
-  padding: 140px 64px;
-}
-.tracks__inner {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.tracks__header {
-  margin-bottom: 80px;
-  text-align: center;
-}
-.tracks__title {
-  font-size: clamp(28px, 3.2vw, 36px);
+.community__title {
+  font-size: clamp(28px, 3.4vw, 40px);
   font-weight: 500;
   letter-spacing: -0.022em;
+  line-height: 1.4;
   color: var(--text-primary);
 }
-.tracks__title .em {
+.community__title .em {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
 }
-.tracks__grid {
+.community__sub {
+  margin-top: 28px;
+  font-size: 15px;
+  line-height: 1.95;
+  color: var(--text-tertiary);
+}
+.community__brandline {
+  margin-top: 32px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+/* =========================================
+   COMMUNITY · 두 자리 카드
+   ========================================= */
+.community__label {
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 44px;
+}
+.community__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
 }
-.track-card {
-  background: transparent;
+.hub-card {
   display: flex;
   flex-direction: column;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.track-card:hover {
-  transform: translateY(-4px);
-}
-.track-card__visual {
+.hub-card:hover { transform: translateY(-4px); }
+.hub-card__visual {
   width: 100%;
   aspect-ratio: 5 / 4;
   position: relative;
-  background: linear-gradient(135deg, #EDE9E0, #D5D1C8);
   overflow: hidden;
+  background: linear-gradient(135deg, #EDE9E0, #D5D1C8);
   margin-bottom: 28px;
 }
-.track-card__visual img {
+.hub-card__visual img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.track-card:hover .track-card__visual img {
-  transform: scale(1.03);
+.hub-card:hover .hub-card__visual img { transform: scale(1.03); }
+.hub-card__badge {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: background 0.3s ease, transform 0.3s ease;
 }
-.track-card__entry {
+.hub-card:hover .hub-card__badge {
+  background: #ffffff;
+  transform: translateX(3px);
+}
+.hub-card__badge svg { width: 16px; height: 16px; }
+.hub-card__entry {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 22px;
@@ -905,360 +312,37 @@ img, video { max-width: 100%; display: block; }
   letter-spacing: 0.01em;
   line-height: 1.4;
 }
-.track-card__audience {
+.hub-card__audience {
   font-size: 12px;
-  font-weight: 400;
   color: var(--text-muted);
   letter-spacing: 0.05em;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
-.track-card__desc {
+.hub-card__desc {
   font-size: 14px;
   color: var(--text-tertiary);
   line-height: 1.85;
-  margin-bottom: 24px;
 }
-.track-card__link {
+.hub-card__cta {
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
   transition: gap 0.3s ease;
-  align-self: flex-start;
 }
-.track-card__link:hover { gap: 12px; }
-
-/* =========================================
-   VOICES (텍스트만, 이미지 없음 — 여백 강조)
-   ========================================= */
-.voices {
-  background: var(--bg-subtle);
-  padding: 140px 64px;
-}
-.voices__inner {
-  max-width: 760px;
-  margin: 0 auto;
-}
-.voices__header {
-  text-align: center;
-  margin-bottom: 80px;
-}
-.voices__title {
-  font-size: clamp(26px, 3vw, 32px);
-  font-weight: 500;
-  letter-spacing: -0.022em;
-  color: var(--text-primary);
-}
-.voices__title .em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-
-.quote {
-  padding: 48px 0;
-  border-bottom: 0.5px solid var(--border-default);
-  text-align: center;
-}
-.quote:last-child { border-bottom: none; }
-.quote__mark {
-  font-family: var(--font-serif);
-  font-size: 56px;
-  line-height: 0.5;
-  color: var(--text-muted);
-  display: block;
-  opacity: 0.4;
-  margin-bottom: 24px;
-}
-.quote__text {
-  font-size: clamp(17px, 1.8vw, 20px);
-  font-weight: 400;
-  line-height: 1.85;
-  letter-spacing: -0.012em;
-  color: var(--text-primary);
-  margin-bottom: 28px;
-  max-width: 620px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.quote__meta {
-  font-size: 12px;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-}
-
-/* =========================================
-   CTA · NEXT STEP (자연스러운 여백)
-   ========================================= */
-.cta {
-  position: relative;
-  min-height: 88vh;
-  background: var(--bg-dark);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-.cta__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    /* 좌측 텍스트 영역에 어두운 비네팅 — 글자 가독성 보장 */
-    radial-gradient(ellipse at 25% 55%, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 45%, rgba(0, 0, 0, 0) 70%),
-    /* 전체 세로 그라데이션 */
-    linear-gradient(180deg, rgba(10, 10, 10, 0.5) 0%, rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.85) 100%),
-    url('gallery-11.jpg') center/cover no-repeat,
-    #1a1814;
-  transform: scaleX(-1);
-}
-.cta__inner {
-  position: relative;
-  z-index: 1;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 160px 64px 100px;
-  width: 100%;
-}
-.cta__label {
-  font-size: 13px;
-  letter-spacing: 0.22em;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 28px;
-  font-weight: 400;
-}
-.cta__headline {
-  font-size: clamp(36px, 5vw, 64px);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.024em;
-  color: var(--text-on-dark);
-  margin-bottom: 40px;
-  max-width: 760px;
-}
-.cta__headline .em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 300;
-}
-.cta__lead {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.78);
-  line-height: 1.85;
-  letter-spacing: -0.005em;
-  margin-bottom: 48px;
-  max-width: 480px;
-}
-
-.cta__buttons {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 100px;
-  flex-wrap: wrap;
-}
-.cta__button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 18px 32px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: -0.005em;
-  transition: all 0.3s ease;
-  border: 0.5px solid transparent;
-}
-.cta__button--primary {
-  background: var(--text-on-dark);
-  color: var(--text-primary);
-}
-.cta__button--primary:hover { opacity: 0.88; }
-.cta__button--ghost {
-  background: transparent;
-  color: var(--text-on-dark);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-.cta__button--ghost:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.6);
-}
-
-.cta__footer {
-  padding-top: 32px;
-  border-top: 0.5px solid var(--border-on-dark);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.hub-card:hover .hub-card__cta { gap: 12px; }
+.hub-card__tag {
+  margin-top: 20px;
+  display: inline-block;
   font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: var(--text-on-dark-footer);
-}
-.cta__socials {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-}
-.cta__social {
-  color: var(--text-on-dark-footer);
-  transition: color 0.2s ease, transform 0.2s ease;
-  display: flex;
-  align-items: center;
-}
-.cta__social:hover {
-  color: var(--text-on-dark);
-  transform: translateY(-1px);
-}
-.cta__social svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* =========================================
-   RECRUIT · 히어로 아래 모집 섹션
-   ========================================= */
-.recruit {
-  background: var(--bg-cream);
-  border-bottom: 0.5px solid var(--border-default);
-  padding: 120px 64px;
-}
-.recruit__inner {
-  max-width: 1120px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-}
-.recruit__visual {
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  background: linear-gradient(135deg, #EDE9E0, #D5D1C8);
-}
-.recruit__visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.recruit__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--accent-sage);
-  margin-bottom: 22px;
-}
-.recruit__badge::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-sage);
-}
-.recruit__title {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(26px, 3vw, 34px);
-  line-height: 1.35;
-  letter-spacing: 0.01em;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-}
-.recruit__lead {
-  font-size: 15px;
-  line-height: 1.9;
-  color: var(--text-tertiary);
-  margin-bottom: 40px;
-  max-width: 480px;
-}
-.recruit__info {
-  border-top: 0.5px solid var(--border-subtle);
-  margin-bottom: 36px;
-}
-.recruit__row {
-  display: flex;
-  gap: 20px;
-  padding: 14px 0;
-  border-bottom: 0.5px solid var(--border-subtle);
-}
-.recruit__row-label {
-  flex: 0 0 68px;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
-  padding-top: 2px;
-}
-.recruit__row-value {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-body);
-  line-height: 1.6;
-}
-.recruit__block {
-  margin-bottom: 28px;
-}
-.recruit__block-label {
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  margin-bottom: 7px;
-}
-.recruit__block-text {
-  font-size: 14px;
-  line-height: 1.8;
-  color: var(--text-body);
-}
-.recruit__list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.recruit__list li {
-  position: relative;
-  padding-left: 16px;
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-body);
-}
-.recruit__list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 10px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent-sage);
-}
-.recruit__apply {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 4px;
-  background: var(--text-primary);
-  color: var(--text-on-dark);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: -0.005em;
-  padding: 15px 34px;
-  border: 1px solid var(--text-primary);
-  transition: background 0.25s ease, color 0.25s ease;
-}
-.recruit__apply:hover {
-  background: transparent;
-  color: var(--text-primary);
-}
-.recruit__note {
-  margin-top: 14px;
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--text-muted);
+  border: 0.5px solid var(--border-default);
+  padding: 6px 14px;
+  border-radius: 100px;
 }
 
 /* =========================================
@@ -1306,9 +390,6 @@ img, video { max-width: 100%; display: block; }
   letter-spacing: 0.05em;
   color: var(--text-muted);
 }
-@media (max-width: 768px) {
-  .site-footer { padding: 48px 24px; }
-}
 
 /* =========================================
    Animations
@@ -1326,333 +407,113 @@ img, video { max-width: 100%; display: block; }
     will-change: auto;
   }
 }
-/* 모바일은 fade-in 효과 없이 즉시 표시 (스크롤 성능 우선) */
 @media (max-width: 1024px) {
-  .fade-in {
-    opacity: 1;
-    transform: none;
-  }
+  .fade-in { opacity: 1; transform: none; }
 }
 
 /* =========================================
    Mobile Responsive
    ========================================= */
 @media (max-width: 1024px) {
-  .empathy__inner { grid-template-columns: 1fr; }
-  .empathy__visual { aspect-ratio: 4 / 3; min-height: auto; }
-  .empathy__content { padding: 64px 32px; }
-
-  .keynote__row,
-  .keynote__row--reverse {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    margin-bottom: 80px;
-    padding-top: 0;
-    margin-top: 0;
-  }
-  .keynote__row--reverse .keynote__visual { order: 0; }
-  .keynote__row--reverse .keynote__text { padding-top: 0; }
-
-  .method__inner { grid-template-columns: 1fr; gap: 40px; }
-  .method__sub { width: 160px; height: 130px; right: -16px; bottom: -32px; }
-  .tracks__grid { grid-template-columns: 1fr; gap: 32px; }
-  .recruit__inner { grid-template-columns: 1fr; gap: 40px; }
-  .recruit__visual { aspect-ratio: 4 / 3; max-height: 420px; }
+  .community__grid { grid-template-columns: 1fr; gap: 40px; }
 }
-
 @media (max-width: 768px) {
   .nav { padding: 12px 16px; height: 56px; backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255, 255, 255, 0.98); }
   .nav__logo { font-size: 15px; }
   .nav__menu { gap: 14px; font-size: 13px; }
   .nav__menu .nav__cta { padding: 8px 12px; font-size: 12px; }
 
-  .recruit { padding: 80px 24px; }
-
-  .hero { height: 74vh; min-height: 480px; max-height: 640px; }
-  .hero__content { left: 24px; right: 24px; bottom: 64px; }
-  .hero__scroll { bottom: 24px; right: 24px; width: 56px; height: 56px; }
-  .hero__line { bottom: 132px; }
-  .hero__sub { margin-top: 60px; }
-
-  .empathy__overlay-text { left: 24px; right: 24px; bottom: 32px; }
-  .empathy__content { padding: 64px 24px; }
-
-  .keynote { padding: 80px 24px; }
-  .keynote__text, .keynote__text--top { padding: 0; }
-  .keynote__row--reverse .keynote__text { padding-top: 0; }
-
-  .keynote-dark { height: 40vh; min-height: 320px; }
-  .keynote-dark__content { padding: 24px; }
-  .keynote-dark__line { left: 24px; }
-
-  /* 모바일에서 흐르는 라인 애니메이션 비활성화 (스크롤 성능 우선) */
-  .hero__line::before,
-  .keynote-dark__line::before {
-    animation: none;
-  }
-
-  .philosophy__visual { height: 70vh; min-height: 480px; }
-  .philosophy__visual img { filter: none; }
-  .philosophy__overlay { left: 50%; right: auto; top: 50%; bottom: auto; transform: translate(-50%, -50%); width: 86%; text-align: center; }
-  .philosophy__bottom { padding: 80px 24px; }
-
-  .method { padding: 80px 24px 120px; }
-  .method__header { margin-bottom: 48px; }
-
-  .tracks { padding: 80px 24px; }
-  .tracks__header { margin-bottom: 48px; }
-
-  .voices { padding: 80px 24px; }
-  .voices__header { margin-bottom: 48px; }
-  .quote { padding: 32px 0; }
-
-  .cta { min-height: auto; }
-  .cta__inner { padding: 100px 24px 64px; }
-  .cta__buttons { flex-direction: column; }
-  .cta__button { width: 100%; justify-content: center; }
-  .cta__footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+  .community { padding: 96px 24px 80px; }
+  .community__header { margin-bottom: 64px; }
+  .site-footer { padding: 48px 24px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ============= NAVIGATION ============= -->
+<!-- ============= NAV ============= -->
 <nav class="nav">
   <a href="index.html" class="nav__logo">lifehaving<span class="dot">.</span></a>
   <div class="nav__menu">
     <div class="nav__dropdown">
       <button type="button" class="nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Service</button>
       <div class="nav__dropdown-menu">
-        <a href="community.html">Community</a>
+        <a href="community.html" class="is-current">Community</a>
         <a href="coming-soon.html">Workshop</a>
         <a href="coming-soon.html">1:1 Coaching</a>
       </div>
     </div>
-    <a href="#tracks">Story</a>
+    <a href="index.html#tracks">Story</a>
     <a href="https://forms.gle/yLydiQVsQA1uz1k28" target="_blank" rel="noopener" class="nav__cta">신청하기</a>
   </div>
 </nav>
 
-<!-- ============= HERO · 풀스크린 시네마틱 ============= -->
-<header class="hero">
-  <div class="hero__slides">
-    <div class="hero__slide is-active" style="background-image:url('gallery-6.jpg')"></div>
-    <div class="hero__slide" style="background-image:url('gallery-2.jpg')"></div>
-    <div class="hero__slide" style="background-image:url('gallery-10.jpg')"></div>
-    <div class="hero__slide" style="background-image:url('gallery-14.jpg')"></div>
-    <div class="hero__slide" style="background-image:url('gallery-16.jpg')"></div>
-  </div>
-  <div class="hero__bg"></div>
-  <div class="hero__content">
-    <h1 class="hero__headline">
-      공간이 정돈될 때,<br>
-      삶이 따라 <span class="em">움직인다.</span>
-    </h1>
-    <p class="hero__sub">내 공간 안에서 시작하는 나다운 삶</p>
-  </div>
-  <!-- 화면 전체 가로폭 divider (왼→오 채워지는 라인) -->
-  <div class="hero__line" aria-hidden="true"></div>
-  <a href="#recruit" class="hero__scroll" aria-label="아래로 스크롤">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="6 9 12 15 18 9"></polyline>
-    </svg>
-    <span>SCROLL</span>
-  </a>
-</header>
+<!-- ============= COMMUNITY ============= -->
+<section class="community fade-in">
+  <div class="community__inner">
 
-<!-- ============= RECRUIT · 모집 (히어로 아래 첫 섹션) ============= -->
-<section class="recruit fade-in" id="recruit">
-  <div class="recruit__inner">
-    <div class="recruit__visual">
-      <img src="gallery-9.jpg" alt="다시 공간이 내 것이 되는 순간 모집">
-    </div>
-    <div class="recruit__body">
-      <div class="recruit__badge">모집 중</div>
-      <h2 class="recruit__title">"다시, 공간이 내 것이 되는 순간"</h2>
-      <p class="recruit__lead">
-        퇴근 후에도 제대로 쉬지 못했다면.<br>
-        나를 소진시키지 않는 집과 루틴을, 함께 설계합니다.
+    <div class="community__header">
+      <div class="community__eyebrow">Community</div>
+      <h1 class="community__title">
+        혼자가 아닌<br>
+        <span class="em">함께</span> 시작하는 변화
+      </h1>
+      <p class="community__sub">
+        작은 공간의 변화에서 시작해, 같은 방향을 걷는 사람들과<br>
+        나다운 삶을 한 걸음씩 이어가게 됩니다.
       </p>
-
-      <div class="recruit__info">
-        <div class="recruit__row">
-          <div class="recruit__row-label">일시</div>
-          <div class="recruit__row-value">2026. 7. 12 (일) · 오후 1–3시</div>
-        </div>
-        <div class="recruit__row">
-          <div class="recruit__row-label">장소</div>
-          <div class="recruit__row-value">데스크라운지 3층 · 대구 수성구 무학로 113</div>
-        </div>
-        <div class="recruit__row">
-          <div class="recruit__row-label">인원</div>
-          <div class="recruit__row-value">선착순 10명 (최소 4명 이상 진행)</div>
-        </div>
-        <div class="recruit__row">
-          <div class="recruit__row-label">참가비</div>
-          <div class="recruit__row-value">30,000원</div>
-        </div>
-      </div>
-
-      <div class="recruit__block">
-        <div class="recruit__block-label">이런 분에게</div>
-        <ul class="recruit__list">
-          <li>퇴근 후 지쳐서 아무것도 하기 싫은 분</li>
-          <li>밖에서 방전된 에너지를 집에서 채우고 싶은 분</li>
-          <li>집을 온전히 나만의 휴식처로 만들고 싶은 분</li>
-        </ul>
-      </div>
-
-      <div class="recruit__block">
-        <div class="recruit__block-label">진행</div>
-        <p class="recruit__block-text">공간・라이프 디렉터 김지영 ・ 라이프해빙 대표</p>
-      </div>
-
-      <a href="https://forms.gle/yLydiQVsQA1uz1k28" target="_blank" rel="noopener" class="recruit__apply">신청하기 →</a>
-      <p class="recruit__note">신청서 작성 후 24시간 이내 입금 안내 문자가 발송됩니다.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============= KEYNOTE 1 · 비대칭 매거진 ============= -->
-<section class="keynote fade-in" id="keynote">
-  <div class="keynote__inner">
-    <div class="keynote__row">
-      <div class="keynote__visual keynote__visual--tall">
-        <img src="gallery-1.jpg" alt="공간이 바뀌면 마음이 바뀐다">
-      </div>
-      <div class="keynote__text">
-        <h2 class="keynote__title">
-          방의 상태는<br>
-          지금 내 <span class="em">마음의 지도</span>입니다.
-        </h2>
-        <p class="keynote__desc">
-          보이지 않던 기준을 가장 먼저 보이게 하는 곳.<br>
-          그것이 공간입니다.
-        </p>
-      </div>
+      <p class="community__brandline">내 방 정리, 나다운 삶의 시작</p>
     </div>
 
-    <div class="keynote__row keynote__row--reverse">
-      <div class="keynote__visual keynote__visual--wide">
-        <img src="gallery-5.jpg" alt="내 기준이라는 나침반">
-      </div>
-      <div class="keynote__text keynote__text--top">
-        <h2 class="keynote__title">
-          무엇을 할지가 아닌,<br>
-          나는 <span class="em">어떤 사람</span>인가에서.
-        </h2>
-        <p class="keynote__desc">
-          선택의 피로는 기준이 생기는 순간 가벼워집니다.<br>
-          답은 한 번의 결심이 아닌, 일상에 녹아드는 반복에서 옵니다.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+    <p class="community__label">지금 함께할 수 있는 두 자리</p>
 
-<!-- ============= KEYNOTE DARK · 풀스크린 어두운 메시지 (예시 4) ============= -->
-<section class="keynote-dark fade-in">
-  <div class="keynote-dark__bg"></div>
-  <div class="keynote-dark__line" aria-hidden="true"></div>
-  <div class="keynote-dark__content">
-    <p class="keynote-dark__text">
-      한 번의 각성이 아닌,<br>
-      <span class="em">일상에 녹아드는 반복.</span><br><br>
-      결과보다 방향, 속도보다 지속성을 이야기합니다.
-    </p>
-  </div>
-</section>
+    <div class="community__grid">
 
-<!-- ============= PHILOSOPHY · 한솔데코 스타일 ============= -->
-<section class="philosophy fade-in" id="philosophy">
-  <div class="philosophy__visual">
-    <img src="gallery-13.jpg" alt="곁에서 함께 머무는 자리">
-    <div class="philosophy__overlay">
-      <p class="philosophy__overlay-quote">
-        우리는 고객을 바꾸지 않습니다.<br>
-        <span class="em">스스로 변화할 수 있는 환경</span>을<br>
-        만듭니다.
-      </p>
-    </div>
-  </div>
-  <div class="philosophy__bottom">
-    <h2 class="philosophy__bottom-title">
-      방 정리를 통해 일상의 변화와<br>
-      자기 기준을 만들어가는 <strong>라이프해빙</strong>
-    </h2>
-  </div>
-</section>
-
-<!-- ============= METHOD · 큰 메인 이미지 + 우측 텍스트 + 오버랩 서브 ============= -->
-<section class="method fade-in" id="method">
-  <div class="method__inner">
-    <!-- 좌측: 메인 이미지 + 우측 하단 작은 서브 -->
-    <div class="method__main">
-      <div class="method__hero">
-        <img src="gallery-8.jpg" alt="라이프해빙의 3단계 여정 — 공간에서 시작되는 변화">
-      </div>
-      <div class="method__sub">
-        <img src="gallery-12.jpg" alt="작은 시작의 한 장면">
-      </div>
-    </div>
-
-    <!-- 우측: 텍스트 -->
-    <div class="method__content">
-      <h2 class="method__title">
-        공간에서 시작해,<br>
-        <span class="em">삶의 방향</span>까지
-      </h2>
-      <p class="method__desc">
-        라이프해빙은 정답을 알려드리지 않습니다.<br>
-        스스로 변화할 수 있는 환경을 만들고,<br>
-        그 곁에서 머뭅니다.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ============= TRACKS · 두 동선 ============= -->
-<section class="tracks fade-in" id="tracks">
-  <div class="tracks__inner">
-    <div class="tracks__header">
-      <h2 class="tracks__title">
-        당신의 <span class="em">자리</span>
-      </h2>
-    </div>
-
-    <div class="tracks__grid">
-      <article class="track-card">
-        <div class="track-card__visual">
+      <!-- 카드 1 · 1:1 코칭 -->
+      <a href="https://forms.gle/yLydiQVsQA1uz1k28" target="_blank" rel="noopener" class="hub-card">
+        <div class="hub-card__visual">
           <img src="gallery-9.jpg" alt="다시 공간이 내 것이 되는 자리">
+          <span class="hub-card__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="8 7 17 7 17 16"></polyline>
+            </svg>
+          </span>
         </div>
-        <div class="track-card__entry">"다시, 공간이 내 것이 되는 순간"</div>
-        <div class="track-card__audience">퇴근 후에도 쉬지 못하는 직장인에게</div>
-        <p class="track-card__desc">
-          집이 더 이상 나를 소진시키지 않도록,<br>
-          삶을 지탱해 주는 최소한의 쉼 공간과 루틴을 함께 만들어 갑니다.<br>
-          퇴근 후, 지친 몸과 마음의 회복을 돕는 공간 설계와<br>
-          루틴으로 리코딩하는 시간. 커뮤니티에서 1:1 코칭까지.
+        <div class="hub-card__entry">"다시, 공간이 내 것이 되는 순간"</div>
+        <div class="hub-card__audience">퇴근 후에도 쉬지 못하는 직장인에게</div>
+        <p class="hub-card__desc">
+          집이 더 이상 나를 소진시키지 않도록, 삶을 지탱해 주는
+          최소한의 쉼 공간과 루틴을 함께 만들어 갑니다.
         </p>
-        <a href="https://forms.gle/yLydiQVsQA1uz1k28" target="_blank" rel="noopener" class="track-card__link">신청하기 →</a>
-      </article>
+        <span class="hub-card__cta">신청하기 →</span>
+      </a>
 
-      <article class="track-card">
-        <div class="track-card__visual">
+      <!-- 카드 2 · 워크숍 -->
+      <a href="coming-soon.html" class="hub-card">
+        <div class="hub-card__visual">
           <img src="gallery-7.jpg" alt="첫 걸음을 함께하는 자리">
+          <span class="hub-card__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="8 7 17 7 17 16"></polyline>
+            </svg>
+          </span>
         </div>
-        <div class="track-card__entry">"내 방에서, 첫 걸음"</div>
-        <div class="track-card__audience">준비만 하는 사람에게</div>
-        <p class="track-card__desc">
-          실행 마비와 비교 불안에서 벗어나,<br>
+        <div class="hub-card__entry">"내 방에서, 첫 걸음"</div>
+        <div class="hub-card__audience">준비만 하는 사람에게</div>
+        <p class="hub-card__desc">
+          실행 마비와 비교 불안에서 벗어나,
           첫 행동을 함께 시작하는 4주의 소규모 워크숍.
         </p>
-        <span class="text-pending">준비중</span>
-      </article>
+        <span class="hub-card__tag">준비중</span>
+      </a>
+
     </div>
   </div>
 </section>
 
-<!-- ============= SITE FOOTER · 로고 + SNS ============= -->
+<!-- ============= SITE FOOTER ============= -->
 <footer class="site-footer">
   <div class="site-footer__inner">
     <a href="index.html" class="site-footer__logo">lifehaving<span class="dot">.</span></a>
@@ -1681,20 +542,6 @@ img, video { max-width: 100%; display: block; }
 </footer>
 
 <script>
-// Hero 자동 페이드 슬라이드
-(function () {
-  const slides = document.querySelectorAll('.hero__slide');
-  if (slides.length <= 1) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) return;
-  let i = 0;
-  setInterval(function () {
-    slides[i].classList.remove('is-active');
-    i = (i + 1) % slides.length;
-    slides[i].classList.add('is-active');
-  }, 3000);
-})();
-
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1703,61 +550,7 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-    if (href === '#') return;
-    const target = document.querySelector(href);
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-
-/* ============= KEYNOTE 텍스트 스크롤 페이드 ============= */
-const keynoteTexts = document.querySelectorAll('.keynote__text');
-const IS_MOBILE = window.matchMedia('(max-width: 1024px)').matches || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-
-// 모바일이면 페이드 효과 완전 비활성화 (스크롤 성능 우선)
-if (!IS_MOBILE && keynoteTexts.length > 0) {
-  let textTicking = false;
-  const textStateCache = new WeakMap();
-
-  function updateTextFade() {
-    const viewportHeight = window.innerHeight;
-    keynoteTexts.forEach(textEl => {
-      const rect = textEl.getBoundingClientRect();
-      if (rect.bottom < -200 || rect.top > viewportHeight + 200) return;
-      const center = rect.top + rect.height / 2;
-      const distanceFromCenter = (center - viewportHeight / 2) / (viewportHeight / 2);
-      const opacity = Math.max(0, Math.min(1, 1 - Math.abs(distanceFromCenter) * 1.1));
-      const translateY = distanceFromCenter * 30;
-
-      const cached = textStateCache.get(textEl);
-      if (cached && Math.abs(cached.opacity - opacity) < 0.01 && Math.abs(cached.translateY - translateY) < 0.5) return;
-      textStateCache.set(textEl, { opacity, translateY });
-
-      textEl.style.opacity = opacity.toFixed(2);
-      textEl.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
-    });
-    textTicking = false;
-  }
-
-  function requestTextFade() {
-    if (!textTicking) {
-      window.requestAnimationFrame(updateTextFade);
-      textTicking = true;
-    }
-  }
-
-  window.addEventListener('scroll', requestTextFade, { passive: true });
-  window.addEventListener('resize', requestTextFade, { passive: true });
-  updateTextFade();
-}
 </script>
 
 </body>
