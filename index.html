@@ -1262,6 +1262,111 @@ img, video { max-width: 100%; display: block; }
 }
 
 /* =========================================
+   NOTICE · 공지 팝업
+   ========================================= */
+.notice-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 10, 10, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.notice-overlay.is-open { opacity: 1; visibility: visible; }
+.notice {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-primary);
+  border: 0.5px solid var(--border-default);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.22);
+  padding: 42px 36px 32px;
+  transform: translateY(14px);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.notice-overlay.is-open .notice { transform: translateY(0); }
+.notice__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  border-radius: 50%;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.notice__close:hover { background: var(--bg-warm); color: var(--text-primary); }
+.notice__close svg { width: 16px; height: 16px; }
+.notice__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent-sage);
+  margin-bottom: 16px;
+}
+.notice__title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.notice__change {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  margin-bottom: 22px;
+}
+.notice__change .old { color: var(--text-muted); text-decoration: line-through; }
+.notice__change .arrow { color: var(--text-muted); }
+.notice__change .new { color: var(--text-primary); font-weight: 700; }
+.notice__apology {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-tertiary);
+  margin-bottom: 18px;
+}
+.notice__box {
+  background: var(--bg-warm);
+  border-left: 2px solid var(--accent-sage);
+  padding: 16px 18px;
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--text-body);
+  margin-bottom: 26px;
+}
+.notice__box strong { font-weight: 700; color: var(--text-primary); }
+.notice__btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: var(--text-primary);
+  color: var(--text-on-dark);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  padding: 14px;
+  border: 1px solid var(--text-primary);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.notice__btn:hover { background: transparent; color: var(--text-primary); }
+@media (max-width: 768px) {
+  .notice { padding: 38px 24px 28px; }
+  .notice__title { font-size: 18px; }
+}
+
+/* =========================================
    SITE FOOTER · 미니멀 (로고 + SNS)
    ========================================= */
 .site-footer {
@@ -1477,7 +1582,7 @@ img, video { max-width: 100%; display: block; }
       <div class="recruit__info">
         <div class="recruit__row">
           <div class="recruit__row-label">일시</div>
-          <div class="recruit__row-value">2026. 7. 12 (일) · 오후 1–3시</div>
+          <div class="recruit__row-value">2026. 7. 12 (일) · 오후 3–5시</div>
         </div>
         <div class="recruit__row">
           <div class="recruit__row-label">장소</div>
@@ -1680,7 +1785,49 @@ img, video { max-width: 100%; display: block; }
   </div>
 </footer>
 
+<!-- ============= 공지 팝업 ============= -->
+<div class="notice-overlay" id="notice" role="dialog" aria-modal="true" aria-labelledby="noticeTitle">
+  <div class="notice">
+    <button type="button" class="notice__close" id="noticeClose" aria-label="닫기">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+      </svg>
+    </button>
+    <div class="notice__eyebrow">공지사항</div>
+    <h2 class="notice__title" id="noticeTitle">원데이 클래스 시간 변경 안내</h2>
+    <div class="notice__change">
+      <span class="old">오후 1–3시</span>
+      <span class="arrow">→</span>
+      <span class="new">오후 3–5시</span>
+    </div>
+    <p class="notice__apology">먼저 일정 변경으로 불편을 드려 죄송합니다.</p>
+    <div class="notice__box">
+      <strong>7월 12일 원데이 클래스 시간이 오후 1–3시에서 오후 3–5시로 변경</strong>되었습니다. 신청 시 변경된 시간을 꼭 확인해 주세요.
+    </div>
+    <button type="button" class="notice__btn" id="noticeOk">확인했습니다</button>
+  </div>
+</div>
+
 <script>
+// 공지 팝업
+(function () {
+  const overlay = document.getElementById('notice');
+  if (!overlay) return;
+  let seen = false;
+  try { seen = sessionStorage.getItem('lh_notice_0712') === '1'; } catch (e) {}
+  if (seen) return;
+  const close = function () {
+    overlay.classList.remove('is-open');
+    try { sessionStorage.setItem('lh_notice_0712', '1'); } catch (e) {}
+  };
+  setTimeout(function () { overlay.classList.add('is-open'); }, 500);
+  document.getElementById('noticeClose').addEventListener('click', close);
+  document.getElementById('noticeOk').addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+
 // Hero 자동 페이드 슬라이드
 (function () {
   const slides = document.querySelectorAll('.hero__slide');
