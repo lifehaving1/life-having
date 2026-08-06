@@ -1294,6 +1294,86 @@ img, video { max-width: 100%; display: block; }
 }
 
 /* =========================================
+   REVIEWS · 원데이 클래스 후기 (사진·영상)
+   ========================================= */
+.reviews {
+  background: var(--bg-primary);
+  border-top: 0.5px solid var(--border-default);
+  padding: 120px 64px;
+}
+.reviews__inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.reviews__header {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 64px;
+}
+.reviews__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent-sage);
+  margin-bottom: 22px;
+}
+.reviews__title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.35;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+}
+.reviews__lead {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--text-tertiary);
+}
+.reviews__grid {
+  column-count: 2;
+  column-gap: 16px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.reviews__photo {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  overflow: hidden;
+  background: var(--bg-cream);
+}
+.reviews__photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.reviews__quote {
+  max-width: 720px;
+  margin: 48px auto 0;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.reviews__quote-meta {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--font-primary);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+@media (max-width: 768px) {
+  .reviews { padding: 80px 24px; }
+  .reviews__grid { column-count: 1; }
+}
+
+/* =========================================
    SITE FOOTER · 미니멀 (로고 + SNS)
    ========================================= */
 .site-footer {
@@ -1542,6 +1622,31 @@ img, video { max-width: 100%; display: block; }
 
       <a href="https://www.latpeed.com/products/ZLiM5?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0DMTAwAHNydGMGYXBwX2lkDzkzNjYxOTc0MzM5MjQ1OQABp7eA5YsfnSRpsZyvExm6y0tdt8tyqBD3gUKI54i_QoDnn7tsybFvt_8gEnp1_aem_vYLM5FP690WD7as8DZaCcQ" target="_blank" rel="noopener" class="recruit__apply">신청하기 →</a>
     </div>
+  </div>
+</section>
+
+<!-- ============= REVIEWS · 원데이 클래스 후기 ============= -->
+<section class="reviews fade-in" id="reviews">
+  <div class="reviews__inner">
+    <div class="reviews__header">
+      <div class="reviews__eyebrow">Review</div>
+      <h2 class="reviews__title">원데이 클래스, 그날의 기록</h2>
+      <p class="reviews__lead">
+        각자의 공간을 다시 세팅한 반나절. 참여자들의 현장을 사진과 영상으로 담았습니다.
+      </p>
+    </div>
+
+    <div class="reviews__grid">
+      <div class="reviews__photo"><img src="review-1.jpg" alt="원데이 클래스 후기 1" loading="lazy"></div>
+      <div class="reviews__photo"><img src="review-2.jpg" alt="원데이 클래스 후기 2" loading="lazy"></div>
+      <div class="reviews__photo"><img src="review-3.jpg" alt="원데이 클래스 후기 3" loading="lazy"></div>
+      <div class="reviews__photo"><img src="review-4.jpg" alt="원데이 클래스 후기 4" loading="lazy"></div>
+    </div>
+
+    <p class="reviews__quote">
+      "집에 돌아와서도 그 느낌이 남았어요. 공간이 달라지니 마음이 먼저 쉬어지더라고요."
+      <span class="reviews__quote-meta">1기 참여자</span>
+    </p>
   </div>
 </section>
 
