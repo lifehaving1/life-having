@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="라이프해빙 커뮤니티 — 같은 자리에서 시작한 사람들과 함께, 공간의 변화에서 나다운 삶으로.">
-<title>라이프해빙 | Community</title>
+<meta name="description" content="라이프해빙 서비스 — 공간에서 시작해 일상, 그리고 삶의 방향까지. 철학과 방법, 코스를 한 페이지에 담았습니다.">
+<title>라이프해빙 | Service</title>
+
 <link rel="icon" href="favicon.ico?v=4" sizes="any">
 <link rel="icon" type="image/png" href="favicon.png?v=4">
 <link rel="apple-touch-icon" href="favicon.png?v=4">
@@ -15,9 +16,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 
 <style>
-/* =========================================
-   Design Tokens
-   ========================================= */
 :root {
   --bg-primary: #FFFFFF;
   --bg-subtle: #FAFAFA;
@@ -33,527 +31,378 @@
   --text-muted: #999999;
   --text-on-dark: #FFFFFF;
   --accent-sage: #8A9A87;
-
   --font-primary: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-serif: 'Cormorant Garamond', 'Pretendard Variable', serif;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { width: 100%; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+html { scroll-behavior: smooth; }
+html, body { width: 100%; overflow-x: hidden; }
 body {
   font-family: var(--font-primary);
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   word-break: keep-all;
   overflow-wrap: break-word;
 }
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; }
 img { max-width: 100%; display: block; }
+section { scroll-margin-top: 66px; }
 
-@media (max-width: 768px) {
-  .community__title br,
-  .community__sub br { display: none; }
-}
-
-/* =========================================
-   Navigation (메인과 동일)
-   ========================================= */
-.nav {
+/* ===== Sticky 앵커 메뉴바 ===== */
+.snav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 60px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 0.5px solid var(--border-default);
-  padding: 14px 32px;
-  height: 60px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  transform: translateZ(0);
 }
-.nav__logo {
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-}
-.nav__logo .dot { color: #B8B8B8; }
-.nav__menu {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-}
-.nav__menu a {
-  color: var(--text-secondary);
-  transition: color 0.2s ease;
-}
-.nav__menu a:hover { color: var(--text-primary); }
-.nav__menu .nav__cta {
-  color: var(--text-on-dark);
+.snav__logo { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+.snav__logo .dot { color: #B8B8B8; }
+.snav__menu { display: flex; align-items: center; gap: 26px; font-size: 14px; font-weight: 500; }
+.snav__menu a { color: var(--text-secondary); transition: color 0.2s ease; }
+.snav__menu a:hover, .snav__menu a.is-active { color: var(--text-primary); }
+.snav__cta {
+  color: var(--text-on-dark) !important;
   background: var(--text-primary);
-  padding: 10px 18px;
-  font-weight: 600;
+  padding: 9px 16px;
   font-size: 13px;
-  letter-spacing: -0.005em;
+  font-weight: 600;
   border: 1px solid var(--text-primary);
   transition: background 0.25s ease, color 0.25s ease;
 }
-.nav__menu .nav__cta:hover {
-  background: transparent;
-  color: var(--text-primary);
-}
-/* --- Service 드롭다운 --- */
-.nav__dropdown { position: relative; }
-.nav__dropdown-toggle {
-  font: inherit;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  color: var(--text-secondary);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.2s ease;
-}
-.nav__dropdown-toggle::after {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg) translateY(-1px);
-  opacity: 0.55;
-  transition: transform 0.25s ease;
-}
-.nav__dropdown:hover .nav__dropdown-toggle,
-.nav__dropdown:focus-within .nav__dropdown-toggle { color: var(--text-primary); }
-.nav__dropdown:hover .nav__dropdown-toggle::after,
-.nav__dropdown:focus-within .nav__dropdown-toggle::after {
-  transform: rotate(45deg) translateY(1px);
-}
-.nav__dropdown-menu {
-  position: absolute;
-  top: calc(100% + 16px);
-  right: 0;
-  min-width: 196px;
-  background: var(--bg-primary);
-  border: 0.5px solid var(--border-default);
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-6px);
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
-  transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s;
-  z-index: 120;
-}
-.nav__dropdown-menu::before {
-  content: "";
-  position: absolute;
-  top: -16px;
-  left: 0;
-  right: 0;
-  height: 16px;
-}
-.nav__dropdown:hover .nav__dropdown-menu,
-.nav__dropdown:focus-within .nav__dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-.nav__dropdown-menu a {
-  display: block;
-  padding: 11px 14px;
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  transition: background 0.18s ease, color 0.18s ease;
-}
-.nav__dropdown-menu a:hover {
-  background: var(--bg-warm);
-  color: var(--text-primary);
-}
-.nav__dropdown-menu a.is-current {
-  color: var(--text-primary);
-  background: var(--bg-warm);
-}
+.snav__cta:hover { background: transparent; color: var(--text-primary) !important; }
 
-/* =========================================
-   COMMUNITY · 헤더
-   ========================================= */
-.community {
-  background: var(--bg-primary);
-  padding: 128px 64px 120px;
+/* ===== 공통 섹션 ===== */
+.sec { padding: 120px 64px; }
+.sec__inner { max-width: 960px; margin: 0 auto; }
+.sec__eyebrow {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  font-weight: 600; color: var(--accent-sage); margin-bottom: 22px;
 }
-.community__inner {
-  max-width: 1080px;
-  margin: 0 auto;
-}
-.community__header {
-  text-align: center;
-  max-width: 660px;
-  margin: 0 auto 88px;
-}
-.community__eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 26px;
-}
-.community__title {
-  font-size: clamp(28px, 3.4vw, 40px);
-  font-weight: 500;
-  letter-spacing: -0.022em;
-  line-height: 1.4;
+.sec__title {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 40px); line-height: 1.35; letter-spacing: 0.01em;
   color: var(--text-primary);
 }
-.community__title .em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-.community__sub {
-  margin-top: 28px;
-  font-size: 15px;
-  line-height: 1.95;
-  color: var(--text-tertiary);
-}
-.community__brandline {
-  margin-top: 32px;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 18px;
-  color: var(--text-secondary);
-  letter-spacing: 0.01em;
-}
+.sec__lead { margin-top: 24px; font-size: 15px; line-height: 1.95; color: var(--text-tertiary); max-width: 640px; }
 
-/* =========================================
-   COMMUNITY · 두 자리 카드
-   ========================================= */
-.community__label {
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  margin-bottom: 44px;
+/* ===== Header ===== */
+.head { padding: 120px 64px 90px; text-align: center; background: var(--bg-warm); }
+.head__title {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  font-size: clamp(32px, 5vw, 52px); line-height: 1.3; color: var(--text-primary);
 }
-.community__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+.head__sub { margin-top: 22px; font-size: 15px; color: var(--text-tertiary); letter-spacing: 0.01em; }
+
+/* ===== 철학 · 원칙 ===== */
+.principles {
+  margin-top: 48px; display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--border-subtle); border: 0.5px solid var(--border-subtle);
 }
-.hub-card {
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hub-card:hover { transform: translateY(-4px); }
-.hub-card__visual {
-  width: 100%;
-  aspect-ratio: 5 / 4;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #EDE9E0, #D5D1C8);
-  margin-bottom: 28px;
-}
-.hub-card__visual img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hub-card:hover .hub-card__visual img { transform: scale(1.03); }
-.hub-card__badge {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-primary);
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-.hub-card:hover .hub-card__badge {
-  background: #ffffff;
-  transform: translateX(3px);
-}
-.hub-card__badge svg { width: 16px; height: 16px; }
-.hub-card__entry {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  letter-spacing: 0.01em;
-  line-height: 1.4;
-}
-.hub-card__audience {
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-  margin-bottom: 18px;
-}
-.hub-card__desc {
-  font-size: 14px;
-  color: var(--text-tertiary);
-  line-height: 1.85;
-}
-.hub-card__cta {
-  margin-top: 20px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.principle { background: var(--bg-primary); padding: 26px 24px; }
+.principle__num { font-size: 12px; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 10px; }
+.principle__name { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+.principle__desc { font-size: 13px; line-height: 1.7; color: var(--text-tertiary); }
+
+/* ===== 방법 3단계 ===== */
+.method-band { background: var(--bg-cream); }
+.steps { margin-top: 52px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.step { background: var(--bg-primary); border: 0.5px solid var(--border-default); padding: 34px 26px; }
+.step__no { font-family: var(--font-serif); font-style: italic; font-size: 24px; color: var(--accent-sage); margin-bottom: 16px; }
+.step__name { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 4px; }
+.step__ko { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
+.step__desc { font-size: 14px; line-height: 1.8; color: var(--text-tertiary); }
+
+/* ===== 코스 ===== */
+.courses { margin-top: 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.course { border: 0.5px solid var(--border-default); padding: 34px 30px; display: flex; flex-direction: column; }
+.course__name { font-family: var(--font-serif); font-style: italic; font-size: 22px; color: var(--text-primary); margin-bottom: 22px; line-height: 1.4; }
+.course__row { display: flex; gap: 16px; padding: 12px 0; border-top: 0.5px solid var(--border-subtle); }
+.course__row-label { flex: 0 0 52px; font-size: 12px; letter-spacing: 0.05em; color: var(--text-muted); padding-top: 2px; }
+.course__row-value { font-size: 14px; line-height: 1.6; color: var(--text-body); }
+.course__cta { margin-top: 24px; }
+.course__btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--text-primary);
   transition: gap 0.3s ease;
 }
-.hub-card:hover .hub-card__cta { gap: 12px; }
-.hub-card__tag {
-  margin-top: 20px;
-  display: inline-block;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  border: 0.5px solid var(--border-default);
-  padding: 6px 14px;
-  border-radius: 100px;
-}
+.course:hover .course__btn { gap: 11px; }
+.course__pending { margin-top: 24px; font-size: 12px; letter-spacing: 0.06em; color: var(--text-muted); border: 0.5px solid var(--border-default); padding: 8px 14px; border-radius: 100px; align-self: flex-start; }
 
-/* =========================================
-   SITE FOOTER · 미니멀 (로고 + SNS)
-   ========================================= */
-.site-footer {
-  background: var(--bg-warm);
-  border-top: 0.5px solid var(--border-default);
-  padding: 64px 64px;
+/* ===== 후기 ===== */
+.reviews-band { background: var(--bg-subtle); }
+.rgrid { margin-top: 48px; column-count: 2; column-gap: 16px; max-width: 820px; margin-left: auto; margin-right: auto; }
+.rphoto { break-inside: avoid; margin-bottom: 16px; overflow: hidden; background: var(--bg-cream); }
+.rphoto img { width: 100%; height: auto; display: block; }
+.rquote {
+  max-width: 680px; margin: 44px auto 0; text-align: center;
+  font-family: var(--font-serif); font-style: italic; font-size: 19px; line-height: 1.7; color: var(--text-secondary);
 }
-.site-footer__inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  text-align: center;
-}
-.site-footer__logo {
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--text-muted);
-}
-.site-footer__logo .dot { color: #C8C8C8; }
-.site-footer__socials {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-}
-.site-footer__social {
-  color: var(--text-muted);
-  transition: color 0.2s ease, transform 0.2s ease;
-  display: flex;
-  align-items: center;
-}
-.site-footer__social:hover {
-  color: var(--text-primary);
-  transform: translateY(-1px);
-}
-.site-footer__social svg { width: 18px; height: 18px; }
-.site-footer__copy {
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-}
+.rquote span { display: block; margin-top: 14px; font-family: var(--font-primary); font-style: normal; font-size: 12px; letter-spacing: 0.05em; color: var(--text-muted); }
 
-/* =========================================
-   Animations
-   ========================================= */
-@media (prefers-reduced-motion: no-preference) and (min-width: 1025px) {
-  .fade-in {
-    opacity: 0;
-    transform: translate3d(0, 20px, 0);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
-  }
-  .fade-in.is-visible {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-    will-change: auto;
-  }
+/* ===== 신청 CTA ===== */
+.apply { background: var(--bg-dark); color: var(--text-on-dark); text-align: center; padding: 120px 64px; }
+.apply__title { font-family: var(--font-serif); font-style: italic; font-size: clamp(28px, 4vw, 42px); line-height: 1.35; }
+.apply__lead { margin-top: 20px; font-size: 15px; line-height: 1.9; color: rgba(255,255,255,0.7); }
+.apply__btn {
+  display: inline-block; margin-top: 40px; background: var(--text-on-dark); color: var(--text-primary);
+  font-size: 15px; font-weight: 600; padding: 16px 40px; border: 1px solid var(--text-on-dark);
+  transition: background 0.25s ease, color 0.25s ease;
 }
-@media (max-width: 1024px) {
-  .fade-in { opacity: 1; transform: none; }
-}
+.apply__btn:hover { background: transparent; color: var(--text-on-dark); }
 
-/* =========================================
-   Mobile Responsive
-   ========================================= */
-@media (max-width: 1024px) {
-  .community__grid { grid-template-columns: 1fr; gap: 40px; }
+/* ===== Footer ===== */
+.foot { background: var(--bg-warm); border-top: 0.5px solid var(--border-default); padding: 64px; }
+.foot__inner { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
+.foot__logo { font-size: 16px; font-weight: 500; letter-spacing: -0.01em; color: var(--text-muted); }
+.foot__logo .dot { color: #C8C8C8; }
+.foot__socials { display: flex; gap: 18px; }
+.foot__social { color: var(--text-muted); transition: color 0.2s ease, transform 0.2s ease; display: flex; }
+.foot__social:hover { color: var(--text-primary); transform: translateY(-1px); }
+.foot__social svg { width: 18px; height: 18px; }
+.foot__copy { font-size: 11px; letter-spacing: 0.05em; color: var(--text-muted); }
+
+/* ===== 반응형 ===== */
+/* ===== D-day 배지 ===== */
+.head__dday {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 22px; padding: 8px 16px; border-radius: 100px;
+  background: var(--text-primary); color: var(--text-on-dark);
+  font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
 }
+.head__dday .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-sage); }
+
+/* ===== 후기 텍스트 ===== */
+.rtexts { margin: 40px auto 0; max-width: 820px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.rtext { background: var(--bg-primary); border: 0.5px solid var(--border-default); padding: 24px 22px; }
+.rtext__q { font-size: 14px; line-height: 1.8; color: var(--text-body); }
+.rtext__m { display: block; margin-top: 14px; font-size: 12px; letter-spacing: 0.05em; color: var(--text-muted); }
+
+/* ===== FAQ ===== */
+.faq__list { margin: 44px auto 0; max-width: 760px; border-top: 0.5px solid var(--border-subtle); }
+.faq__item { border-bottom: 0.5px solid var(--border-subtle); }
+.faq__q { width: 100%; text-align: left; background: none; border: none; cursor: pointer; padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: 15px; font-weight: 500; color: var(--text-primary); font-family: inherit; }
+.faq__q::after { content: "+"; font-size: 20px; color: var(--text-muted); flex-shrink: 0; transition: transform 0.3s ease; }
+.faq__item.is-open .faq__q::after { transform: rotate(45deg); }
+.faq__a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.faq__a p { padding: 0 0 22px; font-size: 14px; line-height: 1.85; color: var(--text-tertiary); }
+
+/* ===== 신청 안내 ===== */
+.apply__info { max-width: 460px; margin: 40px auto 0; text-align: left; border: 0.5px solid rgba(255,255,255,0.18); }
+.apply__row { display: flex; gap: 16px; padding: 14px 20px; border-bottom: 0.5px solid rgba(255,255,255,0.12); }
+.apply__row:last-child { border-bottom: none; }
+.apply__row-l { flex: 0 0 60px; font-size: 12px; letter-spacing: 0.05em; color: rgba(255,255,255,0.5); padding-top: 2px; }
+.apply__row-v { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.92); }
+.apply__note { max-width: 460px; margin: 16px auto 0; font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.5); text-align: left; }
+
 @media (max-width: 768px) {
-  .nav { padding: 12px 16px; height: 56px; backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255, 255, 255, 0.98); }
-  .nav__logo { font-size: 15px; }
-  .nav__menu { gap: 14px; font-size: 13px; }
-  .nav__menu .nav__cta { padding: 8px 12px; font-size: 12px; }
-
-  .community { padding: 96px 24px 80px; }
-  .community__header { margin-bottom: 64px; }
-  .site-footer { padding: 48px 24px; }
+  .snav { padding: 0 16px; height: 56px; }
+  .snav__menu { gap: 14px; font-size: 13px; }
+  .snav__cta { padding: 8px 12px; font-size: 12px; }
+  .rtexts { grid-template-columns: 1fr; }
+  section { scroll-margin-top: 60px; }
+  .sec, .head, .apply { padding-left: 24px; padding-right: 24px; }
+  .sec { padding-top: 80px; padding-bottom: 80px; }
+  .principles { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; gap: 14px; }
+  .courses { grid-template-columns: 1fr; }
+  .rgrid { column-count: 1; }
+  .foot { padding: 48px 24px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ============= NAV ============= -->
-<nav class="nav">
-  <a href="index.html" class="nav__logo">lifehaving<span class="dot">.</span></a>
-  <div class="nav__menu">
-    <div class="nav__dropdown">
-      <button type="button" class="nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Service</button>
-      <div class="nav__dropdown-menu">
-        <a href="community.html" class="is-current">Community</a>
-        <a href="coming-soon.html">Workshop</a>
-        <a href="coming-soon.html">1:1 Coaching</a>
-      </div>
-    </div>
-    <a href="index.html#tracks">Story</a>
-    <a href="https://www.latpeed.com/products/ZLiM5?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0DMTAwAHNydGMGYXBwX2lkDzkzNjYxOTc0MzM5MjQ1OQABp7eA5YsfnSRpsZyvExm6y0tdt8tyqBD3gUKI54i_QoDnn7tsybFvt_8gEnp1_aem_vYLM5FP690WD7as8DZaCcQ" target="_blank" rel="noopener" class="nav__cta">신청하기</a>
+<!-- ===== Sticky 앵커 메뉴 ===== -->
+<nav class="snav">
+  <a href="index.html" class="snav__logo">lifehaving<span class="dot">.</span></a>
+  <div class="snav__menu">
+    <a href="#philosophy">철학</a>
+    <a href="#method">방법</a>
+    <a href="#course">코스</a>
+    <a href="#reviews">후기</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://www.latpeed.com/products/ZLiM5?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0DMTAwAHNydGMGYXBwX2lkDzkzNjYxOTc0MzM5MjQ1OQABp7eA5YsfnSRpsZyvExm6y0tdt8tyqBD3gUKI54i_QoDnn7tsybFvt_8gEnp1_aem_vYLM5FP690WD7as8DZaCcQ" target="_blank" rel="noopener" class="snav__cta">신청하기</a>
   </div>
 </nav>
 
-<!-- ============= COMMUNITY ============= -->
-<section class="community fade-in">
-  <div class="community__inner">
+<!-- ===== Header ===== -->
+<header class="head">
+  <div class="head__dday"><span class="dot"></span><span id="dday">모집 마감 D-9</span></div>
+  <h1 class="head__title">공간에서 시작하는 변화</h1>
+  <p class="head__sub">내 공간 안에서 시작하는 나다운 여정</p>
+</header>
 
-    <div class="community__header">
-      <div class="community__eyebrow">Community</div>
-      <h1 class="community__title">
-        혼자가 아닌<br>
-        <span class="em">함께</span> 시작하는 변화
-      </h1>
-      <p class="community__sub">
-        작은 공간의 변화에서 시작해, 같은 방향을 걷는 사람들과<br>
-        나다운 삶을 한 걸음씩 이어가게 됩니다.
-      </p>
-      <p class="community__brandline">내 방 정리, 나다운 삶의 시작</p>
-    </div>
-
-    <p class="community__label">지금 함께할 수 있는 두 자리</p>
-
-    <div class="community__grid">
-
-      <!-- 카드 1 · 1:1 코칭 -->
-      <a href="https://www.latpeed.com/products/ZLiM5?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0DMTAwAHNydGMGYXBwX2lkDzkzNjYxOTc0MzM5MjQ1OQABp7eA5YsfnSRpsZyvExm6y0tdt8tyqBD3gUKI54i_QoDnn7tsybFvt_8gEnp1_aem_vYLM5FP690WD7as8DZaCcQ" target="_blank" rel="noopener" class="hub-card">
-        <div class="hub-card__visual">
-          <img src="gallery-9.jpg" alt="다시 공간이 내 것이 되는 자리">
-          <span class="hub-card__badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="7" y1="17" x2="17" y2="7"></line>
-              <polyline points="8 7 17 7 17 16"></polyline>
-            </svg>
-          </span>
-        </div>
-        <div class="hub-card__entry">"다시, 공간이 내 것이 되는 순간"</div>
-        <div class="hub-card__audience">퇴근 후에도 쉬지 못하는 직장인에게</div>
-        <p class="hub-card__desc">
-          집이 더 이상 나를 소진시키지 않도록, 삶을 지탱해 주는
-          최소한의 쉼 공간과 루틴을 함께 만들어 갑니다.
-        </p>
-        <span class="hub-card__cta">신청하기 →</span>
-      </a>
-
-      <!-- 카드 2 · 워크숍 -->
-      <a href="coming-soon.html" class="hub-card">
-        <div class="hub-card__visual">
-          <img src="gallery-7.jpg" alt="첫 걸음을 함께하는 자리">
-          <span class="hub-card__badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="7" y1="17" x2="17" y2="7"></line>
-              <polyline points="8 7 17 7 17 16"></polyline>
-            </svg>
-          </span>
-        </div>
-        <div class="hub-card__entry">"내 방에서, 첫 걸음"</div>
-        <div class="hub-card__audience">준비만 하는 사람에게</div>
-        <p class="hub-card__desc">
-          실행 마비와 비교 불안에서 벗어나,
-          첫 행동을 함께 시작하는 4주의 소규모 워크숍.
-        </p>
-        <span class="hub-card__tag">준비중</span>
-      </a>
-
+<!-- ===== 철학 ===== -->
+<section class="sec" id="philosophy">
+  <div class="sec__inner">
+    <div class="sec__eyebrow">Philosophy</div>
+    <h2 class="sec__title">정답을 주는 대신,<br>바뀔 수 있는 환경을 만듭니다</h2>
+    <p class="sec__lead">
+      라이프해빙은 정리 기술을 가르치지 않습니다. 스스로 움직일 수 있는 조건을 함께 설계합니다.
+      공간이 정돈되면 행동이 쉬워지고, 행동이 쌓이면 삶의 방향이 선명해집니다. 그 과정 곁에 조용히 머무릅니다.
+    </p>
+    <div class="principles">
+      <div class="principle"><div class="principle__num">01</div><div class="principle__name">환경 조성</div><div class="principle__desc">변화가 일어날 수 있는 공간과 조건을 먼저 만듭니다.</div></div>
+      <div class="principle"><div class="principle__num">02</div><div class="principle__name">무조건적 지지</div><div class="principle__desc">평가하지 않고, 각자의 속도를 있는 그대로 지지합니다.</div></div>
+      <div class="principle"><div class="principle__num">03</div><div class="principle__name">올바른 솔루션</div><div class="principle__desc">유행이 아닌, 그 사람에게 맞는 방향을 제안합니다.</div></div>
+      <div class="principle"><div class="principle__num">04</div><div class="principle__name">유연한 태도</div><div class="principle__desc">정해진 틀보다, 상황에 맞춰 함께 조정해 나갑니다.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ============= SITE FOOTER ============= -->
-<footer class="site-footer">
-  <div class="site-footer__inner">
-    <a href="index.html" class="site-footer__logo">lifehaving<span class="dot">.</span></a>
-    <div class="site-footer__socials">
-      <a href="https://www.instagram.com/lifehaving_story/" target="_blank" rel="noopener" class="site-footer__social" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="5" ry="5"/>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-        </svg>
+<!-- ===== 방법 3단계 ===== -->
+<section class="sec method-band" id="method">
+  <div class="sec__inner">
+    <div class="sec__eyebrow">Method</div>
+    <h2 class="sec__title">3단계로 이어지는 흐름</h2>
+    <p class="sec__lead">공간의 변화에서 시작해, 일상의 행동, 그리고 삶의 방향 전환까지. 작은 시작이 자연스럽게 다음 단계로 이어집니다.</p>
+    <div class="steps">
+      <div class="step"><div class="step__no">01</div><div class="step__name">Space Reset</div><div class="step__ko">공간 리셋 · 행동 시작</div><div class="step__desc">방 한 평의 변화로 첫 행동을 시작합니다. 가장 작은 공간부터 다시 세팅합니다.</div></div>
+      <div class="step"><div class="step__no">02</div><div class="step__name">Routine Anchor</div><div class="step__ko">일상 루틴 · 기회 잡기</div><div class="step__desc">바뀐 공간 위에서 매일의 루틴을 붙잡습니다. 변화가 일상에 자리 잡습니다.</div></div>
+      <div class="step"><div class="step__no">03</div><div class="step__name">Life Direction</div><div class="step__ko">삶의 방향 전환</div><div class="step__desc">쌓인 행동이 삶의 방향으로 이어집니다. 내 기준으로 움직이게 됩니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 코스 ===== -->
+<section class="sec" id="course">
+  <div class="sec__inner">
+    <div class="sec__eyebrow">Course</div>
+    <h2 class="sec__title">지금 함께할 수 있는 코스</h2>
+    <div class="courses">
+      <article class="course">
+        <div class="course__name">"다시, 공간이 내 것이 되는 순간"</div>
+        <div class="course__row"><div class="course__row-label">대상</div><div class="course__row-value">퇴근 후에도 집에서 잘 쉬어지지 않는 직장인</div></div>
+        <div class="course__row"><div class="course__row-label">방식</div><div class="course__row-value">공간 설계와 루틴 리코딩, 1:1 코칭</div></div>
+        <div class="course__row"><div class="course__row-label">결과</div><div class="course__row-value">나를 소진시키지 않는 집과 최소한의 쉼 루틴</div></div>
+        <div class="course__cta"><a href="https://www.latpeed.com/products/ZLiM5?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0DMTAwAHNydGMGYXBwX2lkDzkzNjYxOTc0MzM5MjQ1OQABp7eA5YsfnSRpsZyvExm6y0tdt8tyqBD3gUKI54i_QoDnn7tsybFvt_8gEnp1_aem_vYLM5FP690WD7as8DZaCcQ" target="_blank" rel="noopener" class="course__btn">신청하기 →</a></div>
+      </article>
+      <article class="course">
+        <div class="course__name">"내 방에서, 첫 걸음"</div>
+        <div class="course__row"><div class="course__row-label">대상</div><div class="course__row-value">준비만 반복하며 실행을 미루는 사람</div></div>
+        <div class="course__row"><div class="course__row-label">방식</div><div class="course__row-value">첫 행동을 함께 시작하는 소규모 워크숍</div></div>
+        <div class="course__row"><div class="course__row-label">결과</div><div class="course__row-value">실행 마비에서 벗어나 첫 걸음을 내딛는 경험</div></div>
+        <span class="course__pending">준비중</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 후기 ===== -->
+<section class="sec reviews-band" id="reviews">
+  <div class="sec__inner">
+    <div class="sec__eyebrow">Review</div>
+    <h2 class="sec__title">원데이 클래스, 그날의 기록</h2>
+    <p class="sec__lead">각자의 공간을 다시 세팅한 반나절. 참여자들의 현장을 사진으로 담았습니다.</p>
+    <div class="rgrid">
+      <div class="rphoto"><img src="review-1.jpg" alt="원데이 클래스 후기 1" loading="lazy"></div>
+      <div class="rphoto"><img src="review-2.jpg" alt="원데이 클래스 후기 2" loading="lazy"></div>
+      <div class="rphoto"><img src="review-3.jpg" alt="원데이 클래스 후기 3" loading="lazy"></div>
+      <div class="rphoto"><img src="review-4.jpg" alt="원데이 클래스 후기 4" loading="lazy"></div>
+    </div>
+    <p class="rquote">
+      "집에 돌아와서도 그 느낌이 남았어요. 공간이 달라지니 마음이 먼저 쉬어지더라고요."
+      <span>1기 참여자</span>
+    </p>
+    <div class="rtexts">
+      <div class="rtext"><p class="rtext__q">"정리를 해도 늘 도로 어질러졌는데, 기준이 생기니 유지가 돼요."</p><span class="rtext__m">30대 · 직장인</span></div>
+      <div class="rtext"><p class="rtext__q">"퇴근하고 집에 오는 게 조금은 편안해졌어요."</p><span class="rtext__m">20대 · 직장인</span></div>
+      <div class="rtext"><p class="rtext__q">"혼자선 엄두가 안 났는데, 같이 하니 시작이 됐습니다."</p><span class="rtext__m">1기 참여자</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec" id="faq">
+  <div class="sec__inner">
+    <div class="sec__eyebrow">FAQ</div>
+    <h2 class="sec__title">자주 묻는 질문</h2>
+    <div class="faq__list">
+      <div class="faq__item"><button class="faq__q" type="button">이 커뮤니티는 어떤 사람을 위한 곳인가요?</button><div class="faq__a"><p>퇴근 후 집에 돌아와도 정리되지 않은 집에 한숨이 나오거나, 주말에 한꺼번에 치우기를 반복하고 있다면 바로 여러분을 위한 커뮤니티입니다.</p></div></div>
+      <div class="faq__item"><button class="faq__q" type="button">정리를 잘 못해도 참여할 수 있나요?</button><div class="faq__a"><p>물론이죠. 오히려 정리를 어디서부터 시작해야 할지 모르겠거나, 치워도 금방 다시 어질러지는 분께 더 잘 맞는 프로그램이에요.<br><br>처음부터 완벽하게 해내는 것이 목표가 아니라, 지금 내 생활 패턴과 공간 상태에서 할 수 있는 '작은 행동'부터 시작해요.</p></div></div>
+      <div class="faq__item"><button class="faq__q" type="button">실제로 어떤 활동을 하나요?</button><div class="faq__a"><p>집에서 동선과 생활 패턴 점검으로 어디서 에너지가 새고, 회복을 막고 있었는지 확인해 나만의 휴식 공간을 다시 설계합니다.<br><br>또 1인, 맞벌이 등 각 가족 구성원에 맞는 유지 가능한 루틴을 만들어 봅니다. 맞벌이인 경우 두 사람이 나눌 수 있는 역할과 현실적으로 가능한 분담 방법도 함께 다룹니다.</p></div></div>
+      <div class="faq__item"><button class="faq__q" type="button">바쁜 직장인도 따라가기 부담 없나요?</button><div class="faq__a"><p>네, 시간을 많이 투자해야 하는 프로그램이 아니에요.<br><br>이 커뮤니티는 '한 번에 집 전체를 치우는 정리'가 아니라, 바쁜 날에도 부담없이 할 수 있는 작은 유지 루틴을 만드는 데 초점을 두고 있어요.</p></div></div>
+      <div class="faq__item"><button class="faq__q" type="button">참여 후 어떤 변화를 기대할 수 있나요?</button><div class="faq__a"><p>'한 번만 치우는 정리'가 아니라 다시 어질러지지 않도록 도와주는 나만의 생활 시스템이 생깁니다.<br><br>눈앞의 물건만 치우는 데서 끝나는 것이 아니라 내가 어떻게 쓰고, 어떻게 물건이 쌓이고, 어떻게 다시 제자리로 돌아가야 하는지까지 생활 리듬에 맞춰 정리 기준을 세우게 됩니다.</p></div></div>
+      <div class="faq__item"><button class="faq__q" type="button">신청 및 결제는 어떻게 하나요?</button><div class="faq__a"><p>신청하기 버튼을 누르면 해당 커뮤니티 결제창으로 이동합니다. 안내에 따라 결제를 완료하시면 신청이 확정됩니다.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 신청 ===== -->
+<section class="apply" id="apply">
+  <h2 class="apply__title">지금, 내 공간부터 시작하기</h2>
+  <p class="apply__lead">작은 공간의 변화가 삶을 한 걸음씩 움직입니다.</p>
+  <div class="apply__info">
+    <div class="apply__row"><div class="apply__row-l">일정</div><div class="apply__row-v">2026. 8. 29 (토) · 9. 5 (토)</div></div>
+    <div class="apply__row"><div class="apply__row-l">장소</div><div class="apply__row-v">데스크라운지 3층 · 대구 수성구 무학로 113</div></div>
+    <div class="apply__row"><div class="apply__row-l">인원</div><div class="apply__row-v">선착순 10명 (최소 4명 이상 진행)</div></div>
+    <div class="apply__row"><div class="apply__row-l">참가비</div><div class="apply__row-v">60,000원</div></div>
+  </div>
+  <p class="apply__note">신청서 작성 후 24시간 이내 입금 안내 문자가 발송됩니다. 입금이 확인되면 신청이 확정됩니다.</p>
+  <a href="https://www.latpeed.com/products/ZLiM5?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0DMTAwAHNydGMGYXBwX2lkDzkzNjYxOTc0MzM5MjQ1OQABp7eA5YsfnSRpsZyvExm6y0tdt8tyqBD3gUKI54i_QoDnn7tsybFvt_8gEnp1_aem_vYLM5FP690WD7as8DZaCcQ" target="_blank" rel="noopener" class="apply__btn">신청하기</a>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="foot">
+  <div class="foot__inner">
+    <a href="index.html" class="foot__logo">lifehaving<span class="dot">.</span></a>
+    <div class="foot__socials">
+      <a href="https://www.instagram.com/lifehaving_story/" target="_blank" rel="noopener" class="foot__social" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
-      <a href="https://blog.naver.com/life_having" target="_blank" rel="noopener" class="site-footer__social" aria-label="네이버 블로그">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M14.05 12.39 9.6 5.86H4v12.28h5.95V11.6l4.45 6.54H20V5.86h-5.95v6.53z"/>
-        </svg>
+      <a href="https://blog.naver.com/life_having" target="_blank" rel="noopener" class="foot__social" aria-label="네이버 블로그">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.05 12.39 9.6 5.86H4v12.28h5.95V11.6l4.45 6.54H20V5.86h-5.95v6.53z"/></svg>
       </a>
-      <a href="https://www.youtube.com/@lifehaving" target="_blank" rel="noopener" class="site-footer__social" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/>
-          <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"/>
-        </svg>
+      <a href="https://www.youtube.com/@lifehaving" target="_blank" rel="noopener" class="foot__social" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"/></svg>
       </a>
     </div>
-    <span class="site-footer__copy">© 2026 LifeHaving. All rights reserved.</span>
+    <span class="foot__copy">© 2026 LifeHaving. All rights reserved.</span>
   </div>
 </footer>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('is-visible');
-      observer.unobserve(entry.target);
+// D-day 카운트다운 (아래 날짜를 실제 모집 마감일로 바꾸세요)
+(function () {
+  const DEADLINE = '2026-08-29T23:59:59';
+  const el = document.getElementById('dday');
+  if (!el) return;
+  const diff = Math.ceil((new Date(DEADLINE) - new Date()) / 86400000);
+  if (diff > 0) el.textContent = '모집 마감 D-' + diff;
+  else if (diff === 0) el.textContent = '모집 마감 D-DAY';
+  else el.textContent = '모집 마감';
+})();
+
+// FAQ 아코디언
+document.querySelectorAll('.faq__item').forEach(function (item) {
+  const q = item.querySelector('.faq__q');
+  const a = item.querySelector('.faq__a');
+  q.addEventListener('click', function () {
+    const open = item.classList.toggle('is-open');
+    a.style.maxHeight = open ? a.scrollHeight + 'px' : '0';
+  });
+});
+
+const links = document.querySelectorAll('.snav__menu a[href^="#"]');
+const secs = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.toggle('is-active', l.getAttribute('href') === '#' + e.target.id));
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}, { rootMargin: '-50% 0px -50% 0px' });
+secs.forEach(s => spy.observe(s));
 </script>
 
 </body>
