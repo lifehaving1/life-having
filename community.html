@@ -237,7 +237,7 @@ section { scroll-margin-top: 66px; }
 
 <!-- ===== Header ===== -->
 <header class="head">
-  <div class="head__dday"><span class="dot"></span><span id="dday">모집 마감 D-9</span></div>
+  <div class="head__dday"><span class="dot"></span><span id="dday">모집 마감 D-4</span></div>
   <h1 class="head__title">공간에서 시작하는 변화</h1>
   <p class="head__sub">내 공간 안에서 시작하는 나다운 여정</p>
 </header>
@@ -371,17 +371,6 @@ section { scroll-margin-top: 66px; }
 </footer>
 
 <script>
-// D-day 카운트다운 (아래 날짜를 실제 모집 마감일로 바꾸세요)
-(function () {
-  const DEADLINE = '2026-08-29T23:59:59';
-  const el = document.getElementById('dday');
-  if (!el) return;
-  const diff = Math.ceil((new Date(DEADLINE) - new Date()) / 86400000);
-  if (diff > 0) el.textContent = '모집 마감 D-' + diff;
-  else if (diff === 0) el.textContent = '모집 마감 D-DAY';
-  else el.textContent = '모집 마감';
-})();
-
 // FAQ 아코디언
 document.querySelectorAll('.faq__item').forEach(function (item) {
   const q = item.querySelector('.faq__q');
