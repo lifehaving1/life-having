@@ -251,7 +251,6 @@ section { scroll-margin-top: 66px; }
 
 <!-- ===== Header ===== -->
 <header class="head">
-  <div class="head__dday"><span class="dot"></span><span id="dday">시작 D-2</span></div>
   <h1 class="head__title">공간에서 시작하는 변화</h1>
   <p class="head__sub">내 공간 안에서 시작하는 나다운 여정</p>
 </header>
@@ -354,7 +353,6 @@ section { scroll-margin-top: 66px; }
 
 <!-- ===== 신청 ===== -->
 <section class="apply" id="apply">
-  <h2 class="apply__title">지금, 내 공간부터 시작하기</h2>
   <p class="apply__lead">작은 공간의 변화가 삶을 한 걸음씩 움직입니다.</p>
   <div class="apply__info">
     <div class="apply__row"><div class="apply__row-l">일정</div><div class="apply__row-v">2026. 8. 29 (토) · 9. 5 (토)</div></div>
@@ -385,18 +383,6 @@ section { scroll-margin-top: 66px; }
 </footer>
 
 <script>
-// D-day 자동 계산 (아래 날짜를 실제 시작일로 바꾸세요 · YYYY-MM-DD)
-(function () {
-  const el = document.getElementById('dday');
-  if (!el) return;
-  const p = '2026-08-29'.split('-');
-  const dl = new Date(+p[0], +p[1] - 1, +p[2]);
-  const n = new Date();
-  const today = new Date(n.getFullYear(), n.getMonth(), n.getDate());
-  const diff = Math.round((dl - today) / 86400000);
-  el.textContent = diff > 0 ? '시작 D-' + diff : diff === 0 ? '오늘 시작' : '진행 중';
-})();
-
 // FAQ 아코디언
 document.querySelectorAll('.faq__item').forEach(function (item) {
   const q = item.querySelector('.faq__q');
