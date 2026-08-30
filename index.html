@@ -1374,6 +1374,40 @@ img, video { max-width: 100%; display: block; }
 }
 
 /* =========================================
+   SERVICE BRIDGE · 홈 → 서비스 안내
+   ========================================= */
+.bridge {
+  background: var(--bg-subtle);
+  border-top: 0.5px solid var(--border-default);
+}
+.bridge__link {
+  display: block;
+  padding: 120px 64px;
+  text-align: center;
+  transition: background 0.4s ease;
+}
+.bridge__link:hover { background: #F1F1F2; }
+.bridge__eyebrow {
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  font-weight: 600; color: var(--accent-sage); margin-bottom: 22px;
+}
+.bridge__title {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 42px); line-height: 1.35; color: var(--text-primary);
+}
+.bridge__lead { margin-top: 22px; font-size: 15px; line-height: 1.9; color: var(--text-tertiary); }
+.bridge__cta {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 36px;
+  font-size: 15px; font-weight: 600; color: var(--text-primary);
+  border-bottom: 1px solid var(--text-primary); padding-bottom: 5px;
+}
+.bridge__arrow { transition: transform 0.3s ease; }
+.bridge__link:hover .bridge__arrow { transform: translateX(6px); }
+@media (max-width: 768px) {
+  .bridge__link { padding: 80px 24px; }
+}
+
+/* =========================================
    SITE FOOTER · 미니멀 (로고 + SNS)
    ========================================= */
 .site-footer {
@@ -1524,6 +1558,20 @@ img, video { max-width: 100%; display: block; }
   .cta__button { width: 100%; justify-content: center; }
   .cta__footer { flex-direction: column; gap: 16px; align-items: flex-start; }
 }
+.is-closed {
+  display: inline-block !important;
+  background: var(--bg-subtle) !important;
+  color: var(--text-muted) !important;
+  border: 0.5px solid var(--border-default) !important;
+  border-radius: 100px !important;
+  padding: 10px 20px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+  cursor: default !important;
+  pointer-events: none !important;
+  text-decoration: none !important;
+}
 </style>
 </head>
 <body>
@@ -1541,7 +1589,7 @@ img, video { max-width: 100%; display: block; }
       </div>
     </div>
     <a href="#tracks">Story</a>
-    <a href="https://www.latpeed.com/products/ZLiM5?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0DMTAwAHNydGMGYXBwX2lkDzkzNjYxOTc0MzM5MjQ1OQABp7eA5YsfnSRpsZyvExm6y0tdt8tyqBD3gUKI54i_QoDnn7tsybFvt_8gEnp1_aem_vYLM5FP690WD7as8DZaCcQ" target="_blank" rel="noopener" class="nav__cta">신청하기</a>
+    <span class="nav__cta is-closed">모집 마감</span>
   </div>
 </nav>
 
@@ -1564,66 +1612,13 @@ img, video { max-width: 100%; display: block; }
   </div>
   <!-- 화면 전체 가로폭 divider (왼→오 채워지는 라인) -->
   <div class="hero__line" aria-hidden="true"></div>
-  <a href="#recruit" class="hero__scroll" aria-label="아래로 스크롤">
+  <a href="#reviews" class="hero__scroll" aria-label="아래로 스크롤">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 12 15 18 9"></polyline>
     </svg>
     <span>SCROLL</span>
   </a>
 </header>
-
-<!-- ============= RECRUIT · 모집 (히어로 아래 첫 섹션) ============= -->
-<section class="recruit fade-in" id="recruit">
-  <div class="recruit__inner">
-    <div class="recruit__visual">
-      <img src="gallery-9.jpg" alt="방 정리로 쉼이 되는 집 1기 모집">
-    </div>
-    <div class="recruit__body">
-      <div class="recruit__badge">커뮤니티 1기 모집 중</div>
-      <h2 class="recruit__title">방 정리로 쉼이 되는 집 1기</h2>
-      <p class="recruit__lead">지친 일상을 회복할 공간 리코딩</p>
-
-      <div class="recruit__block">
-        <div class="recruit__block-label">진행</div>
-        <p class="recruit__block-text">
-          공간・라이프 코칭 라이프해빙 4년차 대표<br>
-          공간・라이프 디렉터 김지영
-        </p>
-      </div>
-
-      <div class="recruit__block">
-        <div class="recruit__block-label">이런 분에게</div>
-        <ul class="recruit__list">
-          <li>퇴근 후 집에 와서도 편히 쉬지 못했던 분</li>
-          <li>정리를 해도 금세 어질러지는 공간으로 스트레스 받은 분</li>
-          <li>내 집에서 진짜 휴식을 갖고 싶은 분</li>
-        </ul>
-      </div>
-
-      <div class="recruit__block">
-        <div class="recruit__block-label">일정</div>
-        <div class="recruit__schedule">
-          <div class="recruit__session">
-            <div class="recruit__session-date">08월 29일</div>
-            <div>
-              <div class="recruit__session-tag">라이프스타일 : 리코딩</div>
-              <div class="recruit__session-desc">회복을 막는 피로 포인트 체크</div>
-            </div>
-          </div>
-          <div class="recruit__session">
-            <div class="recruit__session-date">09월 05일</div>
-            <div>
-              <div class="recruit__session-tag">라이프스타일 : 루틴</div>
-              <div class="recruit__session-desc">나만의 쉼 공간 & 루틴 셋</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <a href="https://www.latpeed.com/products/ZLiM5?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0DMTAwAHNydGMGYXBwX2lkDzkzNjYxOTc0MzM5MjQ1OQABp7eA5YsfnSRpsZyvExm6y0tdt8tyqBD3gUKI54i_QoDnn7tsybFvt_8gEnp1_aem_vYLM5FP690WD7as8DZaCcQ" target="_blank" rel="noopener" class="recruit__apply">신청하기 →</a>
-    </div>
-  </div>
-</section>
 
 <!-- ============= REVIEWS · 원데이 클래스 후기 ============= -->
 <section class="reviews fade-in" id="reviews">
@@ -1770,7 +1765,7 @@ img, video { max-width: 100%; display: block; }
           퇴근 후, 지친 몸과 마음의 회복을 돕는 공간 설계와<br>
           루틴으로 리코딩하는 시간. 커뮤니티에서 1:1 코칭까지.
         </p>
-        <a href="https://www.latpeed.com/products/ZLiM5?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0DMTAwAHNydGMGYXBwX2lkDzkzNjYxOTc0MzM5MjQ1OQABp7eA5YsfnSRpsZyvExm6y0tdt8tyqBD3gUKI54i_QoDnn7tsybFvt_8gEnp1_aem_vYLM5FP690WD7as8DZaCcQ" target="_blank" rel="noopener" class="track-card__link">신청하기 →</a>
+        <span class="track-card__link is-closed">모집 마감</span>
       </article>
 
       <article class="track-card">
@@ -1787,6 +1782,16 @@ img, video { max-width: 100%; display: block; }
       </article>
     </div>
   </div>
+</section>
+
+<!-- ============= SERVICE BRIDGE · 홈 → 서비스 안내 ============= -->
+<section class="bridge fade-in">
+  <a href="community.html" class="bridge__link">
+    <div class="bridge__eyebrow">Service</div>
+    <h2 class="bridge__title">라이프해빙이 함께하는 방식을,<br>더 자세히</h2>
+    <p class="bridge__lead">철학과 3단계 흐름, 코스와 후기까지 한 페이지에 담았습니다.</p>
+    <span class="bridge__cta">서비스 자세히 보기 <span class="bridge__arrow">→</span></span>
+  </a>
 </section>
 
 <!-- ============= SITE FOOTER · 로고 + SNS ============= -->
